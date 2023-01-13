@@ -1,0 +1,33 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@next/font": "13.1.1",
+    "bootstrap": "^5.2.3",
+    "chart.js": "^4.1.1",
+    "eslint": "8.31.0",
+    "eslint-config-next": "13.1.1",
+    "feather-icons-react": "^0.6.2",
+    "next": "13.1.1",
+    "react": "18.2.0",
+    "react-chartjs-2": "^5.1.0",
+    "react-countup": "^6.4.0",
+    "react-dom": "18.2.0",
+    "react-toastify": "^9.1.1",
+    "reactstrap": "^9.1.5",
+    "sass": "^1.57.1",
+    "simplebar-react": "^2.4.3",
+    "swiper": "^8.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.18",
+    "@types/react": "18.0.26"
+  }
+}
