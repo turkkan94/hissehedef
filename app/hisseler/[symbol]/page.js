@@ -9,7 +9,7 @@ import TargetPrices from "../../../components/common/TargetPrices";
 import getStockData from "../../../components/common/GetStockFunction";
 import estimatedFinancials from "../../../components/common/EstimatedFinancials";
 import NoticeInformation from "../../../components/common/NoticeInformation";
-import getStockHistoryPrice from "../../../components/common/GetStockHistoryPrice";
+// import getStockHistoryPrice from "../../../components/common/GetStockHistoryPrice";
 
 function StockPage({ params: { symbol } }) {
   const {
@@ -21,16 +21,16 @@ function StockPage({ params: { symbol } }) {
     period,
   } = use(getStockData(symbol));
 
-  const stockHistoryPrice = use(
-    getStockHistoryPrice(
-      symbol,
-      Math.floor(new Date("2023.01.05").getTime() / 1000)
-    )
-  );
+  // const stockHistoryPrice = use(
+  //   getStockHistoryPrice(
+  //     symbol,
+  //     Math.floor(new Date("2023.01.05").getTime() / 1000)
+  //   )
+  // );
 
-  console.log(
-    stockHistoryPrice.stockPrice.chart.result[0].indicators.quote[0].close[0]
-  );
+  // console.log(
+  //   stockHistoryPrice.stockPrice.chart.result[0].indicators.quote[0].close[0]
+  // );
   const stockIncomeQuarterlyChart = {
     title: "Net Kâr",
     data: stockIncomeQuarterly,
