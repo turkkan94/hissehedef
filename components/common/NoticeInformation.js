@@ -3,7 +3,6 @@ import { Alert, Card, CardBody, Col, Row } from "reactstrap";
 //Import Icons
 import FeatherIcon from "feather-icons-react";
 import Link from "next/link";
-import Image from "next/Image";
 
 const NoticeInformation = () => {
   return (
