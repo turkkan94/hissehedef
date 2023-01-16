@@ -1,5 +1,5 @@
 "use client";
-import { signIn, getCsrfToken } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState, useContext } from "react";
@@ -68,12 +68,6 @@ function LoginPage() {
                   <div className="p-2 mt-4">
                     <form onSubmit={submitHandler}>
                       <div className="mb-3">
-                        <input
-                          name="csrfToken"
-                          type="hidden"
-                          defaultValue={csrfToken}
-                        />
-
                         <label htmlFor="email" className="form-label">
                           Mail
                         </label>
