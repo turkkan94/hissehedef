@@ -1,6 +1,5 @@
 import React from "react";
 import CountUp from "react-countup";
-import { cyptoWidgets } from "../data/crypto";
 
 function Widgets({ indices }) {
   const indicesData = indices.quoteResponse.result;

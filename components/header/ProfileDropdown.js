@@ -1,3 +1,4 @@
+import { signOut } from "next-auth/react";
 import React, { useState, useEffect } from "react";
 import {
   Dropdown,
@@ -5,7 +6,8 @@ import {
   DropdownMenu,
   DropdownToggle,
 } from "reactstrap";
-function ProfileDropdown() {
+
+function ProfileDropdown({ user }) {
   //Dropdown Toggle
   const [isProfileDropdown, setIsProfileDropdown] = useState(false);
   const toggleProfileDropdown = () => {
@@ -27,37 +29,33 @@ function ProfileDropdown() {
             />
             <span className="text-start ms-xl-2">
               <span className="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
-                {"Ahmet Türkkan"}
+                {user?.first_name + " " + user?.last_name}
               </span>
               <span className="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">
-                Founder
+                Üye
               </span>
             </span>
           </span>
         </DropdownToggle>
         <DropdownMenu className="dropdown-menu-end">
-          <h6 className="dropdown-header">Welcome {"Ahmet"}!</h6>
-          <DropdownItem href="/profile">
+          <h6 className="dropdown-header">Hoş geldin {user?.first_name}!</h6>
+          <DropdownItem href="/profil">
             <i className="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
-            <span className="align-middle">Profile</span>
+            <span className="align-middle">Profil</span>
           </DropdownItem>
-          <DropdownItem href="/apps-chat">
+          <DropdownItem href="/portfoy">
             <i className="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i>{" "}
-            <span className="align-middle">Messages</span>
+            <span className="align-middle">Portföy</span>
           </DropdownItem>
-          <DropdownItem href="#">
-            <i className="mdi mdi-calendar-check-outline text-muted fs-16 align-middle me-1"></i>{" "}
-            <span className="align-middle">Taskboard</span>
-          </DropdownItem>
-          <DropdownItem href="/pages-faqs">
+          <DropdownItem href="/yardim">
             <i className="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i>{" "}
-            <span className="align-middle">Help</span>
+            <span className="align-middle">Yardım</span>
           </DropdownItem>
           <div className="dropdown-divider"></div>
           <DropdownItem href="/pages-profile">
             <i className="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i>{" "}
             <span className="align-middle">
-              Balance : <b>$5971.67</b>
+              Portföy : <b>$5971.67</b>
             </span>
           </DropdownItem>
           <DropdownItem href="/pages-profile-settings">
@@ -65,16 +63,12 @@ function ProfileDropdown() {
               New
             </span>
             <i className="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i>{" "}
-            <span className="align-middle">Settings</span>
+            <span className="align-middle">Ayarlar</span>
           </DropdownItem>
-          <DropdownItem href="/auth-lockscreen-basic">
-            <i className="mdi mdi-lock text-muted fs-16 align-middle me-1"></i>{" "}
-            <span className="align-middle">Lock screen</span>
-          </DropdownItem>
-          <DropdownItem href="/logout">
+          <DropdownItem onClick={() => signOut()}>
             <i className="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>{" "}
             <span className="align-middle" data-key="t-logout">
-              Logout
+              Çıkış
             </span>
           </DropdownItem>
         </DropdownMenu>

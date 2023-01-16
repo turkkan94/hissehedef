@@ -1,13 +1,18 @@
+"use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Input } from "reactstrap";
 import SimpleBar from "simplebar-react";
+import useSWR from "swr";
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 function SearchOption() {
   const [value, setValue] = useState("");
   const onChangeData = (value) => {
     setValue(value);
   };
+  const [filteredStocks, setFilteredStocks] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     var searchOptions = document.getElementById("search-close-options");
@@ -49,15 +54,28 @@ function SearchOption() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    if (value !== "") {
+      setLoading(true);
+      fetch(`${process.env.MAIN_API}/stocks/?symbol=${value}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setFilteredStocks(data);
+          setLoading(false);
+        });
+    }
+  }, [value]);
+
   return (
     <>
       {" "}
       <form className="app-search d-none d-md-block">
         <div className="position-relative">
-          <Input
+          <input
             type="text"
             className="form-control"
-            placeholder="Search..."
+            placeholder="Hisse Ara..."
             id="search-options"
             value={value}
             onChange={(e) => {
@@ -72,107 +90,46 @@ function SearchOption() {
         </div>
         <div className="dropdown-menu dropdown-menu-lg" id="search-dropdown">
           <SimpleBar style={{ height: "320px" }}>
-            <div className="dropdown-header">
-              <h6 className="text-overflow text-muted mb-0 text-uppercase">
-                Recent Searches
-              </h6>
-            </div>
-
-            <div className="dropdown-item bg-transparent text-wrap">
-              <Link
-                href="/"
-                className="btn btn-soft-secondary btn-sm btn-rounded"
-              >
-                how to setup <i className="mdi mdi-magnify ms-1"></i>
-              </Link>
-              <Link
-                href="/"
-                className="btn btn-soft-secondary btn-sm btn-rounded"
-              >
-                buttons <i className="mdi mdi-magnify ms-1"></i>
-              </Link>
-            </div>
-
-            <div className="dropdown-header mt-2">
-              <h6 className="text-overflow text-muted mb-1 text-uppercase">
-                Pages
-              </h6>
-            </div>
-
-            <Link href="#" className="dropdown-item notify-item">
-              <i className="ri-bubble-chart-line align-middle fs-18 text-muted me-2"></i>
-              <span>Analytics Dashboard</span>
-            </Link>
-
-            <Link href="#" className="dropdown-item notify-item">
-              <i className="ri-lifebuoy-line align-middle fs-18 text-muted me-2"></i>
-              <span>Help Center</span>
-            </Link>
-
-            <Link href="#" className="dropdown-item notify-item">
-              <i className="ri-user-settings-line align-middle fs-18 text-muted me-2"></i>
-              <span>My account settings</span>
-            </Link>
-
             <div className="dropdown-header mt-2">
               <h6 className="text-overflow text-muted mb-2 text-uppercase">
-                Members
+                Hisseler
               </h6>
             </div>
 
             <div className="notification-list">
-              <Link href="#" className="dropdown-item notify-item py-2">
-                <div className="d-flex">
-                  <img
-                    src={"/assets/images/users/avatar-2.jpg"}
-                    className="me-3 rounded-circle avatar-xs"
-                    alt="user-pic"
-                  />
-                  <div className="flex-1">
-                    <h6 className="m-0">Angela Bernier</h6>
-                    <span className="fs-11 mb-0 text-muted">Manager</span>
-                  </div>
-                </div>
-              </Link>
-
-              <Link href="#" className="dropdown-item notify-item py-2">
-                <div className="d-flex">
-                  <img
-                    src={"/assets/images/users/avatar-3.jpg"}
-                    className="me-3 rounded-circle avatar-xs"
-                    alt="user-pic"
-                  />
-                  <div className="flex-1">
-                    <h6 className="m-0">David Grasso</h6>
-                    <span className="fs-11 mb-0 text-muted">Web Designer</span>
-                  </div>
-                </div>
-              </Link>
-
-              <Link href="#" className="dropdown-item notify-item py-2">
-                <div className="d-flex">
-                  <img
-                    src={"/assets/images/users/avatar-5.jpg"}
-                    className="me-3 rounded-circle avatar-xs"
-                    alt="user-pic"
-                  />
-                  <div className="flex-1">
-                    <h6 className="m-0">Mike Bunch</h6>
-                    <span className="fs-11 mb-0 text-muted">
-                      React Developer
-                    </span>
-                  </div>
-                </div>
-              </Link>
+              {filteredStocks !== null &&
+                filteredStocks.map((stock) => (
+                  <a
+                    key={stock.id}
+                    href={`/hisseler/${stock.symbol}`}
+                    className="dropdown-item notify-item py-2"
+                  >
+                    <div className="d-flex">
+                      <img
+                        src={`/assets/stocks/logo/${stock.symbol}.svg`}
+                        className="me-3 rounded-circle avatar-xs"
+                        alt="user-pic"
+                      />
+                      <div className="flex-1">
+                        <h6
+                          className="m-0 text-truncate"
+                          style={{ width: 250 }}
+                        >
+                          {stock.title}
+                        </h6>
+                        <span className="fs-11 mb-0 text-muted text-uppercase">
+                          {stock.symbol}
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                ))}
             </div>
           </SimpleBar>
 
           <div className="text-center pt-3 pb-1">
-            <Link
-              href="/pages-search-results"
-              className="btn btn-primary btn-sm"
-            >
-              View All Results <i className="ri-arrow-right-line ms-1"></i>
+            <Link href="/hisseler" className="btn btn-primary btn-sm">
+              Tüm Hisseler <i className="ri-arrow-right-line ms-1"></i>
             </Link>
           </div>
         </div>

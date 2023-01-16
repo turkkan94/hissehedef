@@ -6,8 +6,7 @@ const nextConfig = {
     serverComponentsExternalPackages: ["react-bootstrap", "reactstrap"],
   },
   env: {
-    YAHOO_API_QUOTE_SUMMARY:
-      "https://query2.finance.yahoo.com/v10/finance/quoteSummary/",
+    MAIN_API: "http://127.0.0.1:8000/api",
     YAHOO_API_QUOTE:
       "https://query2.finance.yahoo.com/v7/finance/quote?symbols=",
   },

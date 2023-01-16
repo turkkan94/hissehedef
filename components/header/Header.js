@@ -1,12 +1,32 @@
 "use client";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useState } from "react";
-import { Dropdown, DropdownMenu, DropdownToggle, Form } from "reactstrap";
+import { useSession, signIn, signOut } from "next-auth/react";
 import FullScreenDropdown from "./FullScreenDropdown";
 import ProfileDropdown from "./ProfileDropdown";
 import SearchOption from "./SearchOption";
-function Header({ layoutModeType, headerClass }) {
+import { Dropdown, DropdownMenu, DropdownToggle, Form } from "reactstrap";
+
+function Header({ headerClass }) {
+  const { data: session, status } = useSession();
   const [search, setSearch] = useState(false);
+  const [user, setUser] = useState();
+  useEffect(() => {
+    const getUser = async () => {
+      if (session) {
+        const res = await fetch(`${process.env.MAIN_API}/me/`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session?.user.access}`,
+          },
+        });
+        const data = await res.json();
+        setUser(data);
+      }
+    };
+    getUser();
+  }, [session]);
   const toogleSearch = () => {
     setSearch(!search);
   };
@@ -104,7 +124,7 @@ function Header({ layoutModeType, headerClass }) {
                 </span>
               </button>
 
-              {/* <SearchOption /> */}
+              <SearchOption />
             </div>
 
             <div className="d-flex align-items-center">
@@ -160,8 +180,16 @@ function Header({ layoutModeType, headerClass }) {
               {/* NotificationDropdown */}
               {/* <NotificationDropdown /> */}
 
-              {/* ProfileDropdown */}
-              <ProfileDropdown />
+              {session?.user ? (
+                <ProfileDropdown user={user} />
+              ) : (
+                <button
+                  className="btn btn-primary waves-effect waves-light"
+                  onClick={() => signIn()}
+                >
+                  Giriş Yap
+                </button>
+              )}
             </div>
           </div>
         </div>
