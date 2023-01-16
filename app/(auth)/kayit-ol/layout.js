@@ -1,8 +1,6 @@
 "use client";
 import "../../../styles/scss/themes.scss";
 
-import { AuthProvider } from "../../Context/AuthContext";
-
 export default function LoginLayout({ children }) {
   return (
     <html
@@ -19,9 +17,7 @@ export default function LoginLayout({ children }) {
       data-layout-position="scrollable"
     >
       <head />
-      <body>
-        <AuthProvider>{children}</AuthProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
