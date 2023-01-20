@@ -25,16 +25,19 @@ export const authOptions = {
       },
       async authorize(credentials, req) {
         const { username, password } = credentials;
-        const res = await fetch(`${process.env.MAIN_API}/token/`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username,
-            password,
-          }),
-        });
+        const res = await fetch(
+          `https://hisse-hedef.herokuapp.com/api/token/`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              username,
+              password,
+            }),
+          }
+        );
 
         const user = await res.json();
         if (res.ok && user) {
