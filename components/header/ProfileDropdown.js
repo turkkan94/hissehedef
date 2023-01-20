@@ -43,28 +43,28 @@ function ProfileDropdown({ user }) {
             <i className="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
             <span className="align-middle">Profil</span>
           </DropdownItem>
-          <DropdownItem href="/portfoy">
-            <i className="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i>{" "}
-            <span className="align-middle">Portföy</span>
+          <DropdownItem href="#">
+            <span className="badge bg-soft-success text-success mt-1 float-end">
+              Yakında!
+            </span>
+            <i className="mdi mdi-cards-heart text-muted fs-16 align-middle me-1"></i>{" "}
+            <span className="align-middle">Favoriler</span>
           </DropdownItem>
-          <DropdownItem href="/yardim">
+          <DropdownItem href="#">
             <i className="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i>{" "}
             <span className="align-middle">Yardım</span>
           </DropdownItem>
           <div className="dropdown-divider"></div>
-          <DropdownItem href="/pages-profile">
+          <DropdownItem href="#">
             <i className="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i>{" "}
             <span className="align-middle">
               Portföy : <b>$5971.67</b>
             </span>
           </DropdownItem>
-          <DropdownItem href="/pages-profile-settings">
-            <span className="badge bg-soft-success text-success mt-1 float-end">
-              New
-            </span>
+          {/* <DropdownItem href="/pages-profile-settings">
             <i className="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i>{" "}
             <span className="align-middle">Ayarlar</span>
-          </DropdownItem>
+          </DropdownItem> */}
           <DropdownItem onClick={() => signOut()}>
             <i className="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>{" "}
             <span className="align-middle" data-key="t-logout">

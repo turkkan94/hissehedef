@@ -30,7 +30,7 @@ export default function RootLayout({ children, session }) {
         <head />
         <body id="layout-wrapper">
           <Header headerClass={headerClass} layoutModeType={layoutModeType} />
-          <Sidebar />
+          {/* <Sidebar /> */}
           <div className="main-content">{children}</div>
           <Footer />
           <ToastContainer />

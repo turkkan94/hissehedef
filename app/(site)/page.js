@@ -44,7 +44,7 @@ async function Home() {
             <div className="col-xxl-9">
               <StockList stocksData={stocks} />
             </div>
-            <div className="col-xxl-3">a</div>
+            <div className="col-xxl-3">yan sütun</div>
             {/* <Trading /> */}
           </div>
           <div className="row">

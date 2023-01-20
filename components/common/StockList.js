@@ -1,18 +1,17 @@
 import Link from "next/link";
 import React from "react";
-import { Col, Card, CardHeader } from "reactstrap";
 
 function StockList({ stocksData }) {
   const stocks = stocksData.quoteResponse.result;
   return (
     <>
-      <Col xl={12}>
-        <Card className="card-height-100">
-          <CardHeader className="card-header align-items-center d-flex">
+      <div className="col-xl-12">
+        <div className="card card-height-100">
+          <div className="card-header align-items-center d-flex">
             <h4 className="card-title mb-0 flex-grow-1 secondFont">
               Bist 100 Hisseleri
             </h4>
-          </CardHeader>
+          </div>
           <div className="card-body">
             <div className="table-responsive table-card">
               <table className="table table-hover table-borderless table-centered align-middle table-nowrap mb-0">
@@ -83,8 +82,8 @@ function StockList({ stocksData }) {
               </table>
             </div>
           </div>
-        </Card>
-      </Col>
+        </div>
+      </div>
     </>
   );
 }

@@ -105,7 +105,7 @@ function Header({ headerClass }) {
                     <img
                       src={"/assets/images/logo-light.png"}
                       alt=""
-                      height="17"
+                      height="32"
                     />
                   </span>
                 </Link>
