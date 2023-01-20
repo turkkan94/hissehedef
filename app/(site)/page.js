@@ -28,7 +28,7 @@ async function Home() {
     <>
       <div className="page-content">
         <div className="container-fluid">
-          <div className="row">
+          <div className="row mt-4">
             <Widgets indices={indices} />
           </div>
           {/* <div className="row">
