@@ -20,16 +20,6 @@ function LoginPage() {
   //   }
   // }, [isAuthenticated, error, loading]);
 
-  // const submitHandler = async (e) => {
-  //   e.preventDefault();
-  //   const result = await signIn("credentials", {
-  //     username: email,
-  //     password: password,
-  //     redirect: true,
-  //     callbackUrl: "/",
-  //   });
-  // };
-
   const submitHandler = async (e) => {
     e.preventDefault();
     signIn("credentials", { username: email, password, redirect: false }).then(

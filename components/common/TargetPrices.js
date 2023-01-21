@@ -104,13 +104,13 @@ function TargetPrices({ EPS, PE, stockQuote }) {
                     Hesapla
                   </button>
                 </form>
-                <div>
+                {/* <div>
                   <div className="avatar-sm flex-shrink-0">
                     <span className="avatar-title bg-soft-info rounded-circle fs-2">
                       <FeatherIcon icon="settings" className="text-info" />
                     </span>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

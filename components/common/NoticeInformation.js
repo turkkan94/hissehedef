@@ -27,38 +27,21 @@ const NoticeInformation = () => {
               </div>
 
               <div className="row align-items-start">
-                <div className="col-sm-8">
+                <div className="col-12">
                   <div className="p-4">
                     <p className="fs-16 lh-base m-0">
-                      Yandaki sitelerden gerekli olan Endeks F/K ortalaması ve
-                      sektör F/K ortalamasını öğrenebilirsiniz.
-                      <i className="mdi mdi-arrow-right"></i>
+                      Ziraat Yatırım sitesinden Bist 100 endeks ortalaması ve
+                      hisseye göre sektör ortalamalarını öğrenebilirsiniz.
                       <br />
                       <br />
-                      Hisse hedef hesaplaması doğru nasıl yapılır? İpuçları
-                      nelerdir öğrenmek için buradaki konuyu inceleyiniz...
+                      <Link
+                        href="https://www.ziraatyatirim.com.tr/tr/gunluk-sirket-getiri-ve-carpanlari"
+                        className="btn btn-danger text-truncate"
+                        target="_blank"
+                      >
+                        Ziraat Yatırım <i className="mdi mdi-arrow-right"></i>
+                      </Link>
                     </p>
-                  </div>
-                </div>
-                <div className="col-sm-4 d-flex flex-column align-items-center p-3">
-                  <div className="mb-4">
-                    <span className="text-success">Yardımcı Siteler</span>
-                  </div>
-                  <div className="px-3 d-flex flex-row align-items-center justify-content-end">
-                    <Link
-                      href="https://www.isyatirim.com.tr/tr-tr/analiz/hisse/Sayfalar/Temel-Degerler-Ve-Oranlar.aspx#page-1"
-                      className="btn btn-success me-3 text-truncate"
-                      target="_blank"
-                    >
-                      Sektör F/K
-                    </Link>
-                    <Link
-                      href="https://docs.google.com/spreadsheets/d/1CnlcWGYQM2ahqF_OEBir2kAMGnX-MzrpoFI9zxjzQiY/"
-                      className="btn btn-primary text-truncate"
-                      target="_blank"
-                    >
-                      Bist 100 F/K
-                    </Link>
                   </div>
                 </div>
               </div>
