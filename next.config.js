@@ -6,7 +6,7 @@ const nextConfig = {
     serverComponentsExternalPackages: ["react-bootstrap", "reactstrap"],
   },
   env: {
-    MAIN_API: "https://hisse-hedef.herokuapp.com/api",
+    MAIN_API: "https://api.hissehedef.com",
     YAHOO_API_QUOTE:
       "https://query2.finance.yahoo.com/v7/finance/quote?symbols=",
   },
