@@ -64,9 +64,8 @@ function TargetPrices({ EPS, PE, stockQuote }) {
                       <input
                         type="float"
                         className="form-control"
-                        id="basiInput"
-                        placeholder="Değer girmelisiniz."
                         onChange={(e) => setSectorPE(e.target.value)}
+                        placeholder="Rakam giriniz."
                       />
                     </div>
                     <div>
@@ -76,8 +75,7 @@ function TargetPrices({ EPS, PE, stockQuote }) {
                       <input
                         type="float"
                         className="form-control"
-                        id="basiInput"
-                        placeholder="Değer girmelisiniz."
+                        placeholder="Rakam giriniz."
                         onChange={(e) => setBist100PE(e.target.value)}
                       />
                     </div>

@@ -67,7 +67,7 @@ function SearchOption() {
   return (
     <>
       {" "}
-      <form className="app-search d-none d-md-block">
+      <form className="app-search  d-md-block">
         <div className="position-relative">
           <input
             type="text"
@@ -85,8 +85,12 @@ function SearchOption() {
             id="search-close-options"
           ></span>
         </div>
-        <div className="dropdown-menu dropdown-menu-lg" id="search-dropdown">
-          <SimpleBar style={{ height: "320px" }}>
+        <div
+          className="dropdown-menu dropdown-menu-lg mt-2"
+          style={{ width: 300 }}
+          id="search-dropdown"
+        >
+          <SimpleBar style={{ height: "300" }}>
             <div className="dropdown-header mt-2">
               <h6 className="text-overflow text-muted mb-2 text-uppercase">
                 Hisseler

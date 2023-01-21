@@ -38,7 +38,7 @@ function Sidebar() {
               </li>
               <li className="nav-item">
                 <a className="nav-link menu-link" href="/" role="button">
-                  <i class="mdi mdi-home"></i>{" "}
+                  <i className="mdi mdi-home"></i>{" "}
                   <span data-key="t-dashboards">Anasayfa</span>
                 </a>
               </li>
@@ -48,7 +48,7 @@ function Sidebar() {
                   href="/hisseler"
                   role="button"
                 >
-                  <i class="mdi mdi-chart-areaspline"></i>{" "}
+                  <i className="mdi mdi-chart-areaspline"></i>{" "}
                   <span data-key="t-dashboards">Hisseler</span>
                 </a>
               </li>

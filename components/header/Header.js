@@ -191,92 +191,6 @@ function Header({ headerClass }) {
             </div>
 
             <div className="d-flex align-items-center">
-              <Dropdown
-                isOpen={search}
-                toggle={toogleSearch}
-                className="d-md-none topbar-head-dropdown header-item"
-              >
-                <DropdownToggle
-                  type="button"
-                  tag="button"
-                  className="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
-                >
-                  <i className="bx bx-search fs-22"></i>
-                </DropdownToggle>
-                <DropdownMenu className="dropdown-menu-lg dropdown-menu-end p-0">
-                  <Form className="p-3">
-                    <div className="form-group m-0">
-                      <div className="input-group">
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Hisse Ara"
-                          id="search-options"
-                          value={value}
-                          onChange={(e) => {
-                            onChangeData(e.target.value);
-                          }}
-                        />
-                        <button className="btn btn-primary" type="submit">
-                          <i className="mdi mdi-magnify"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div
-                      className="dropdown-menu dropdown-menu-lg"
-                      id="search-dropdown"
-                    >
-                      <SimpleBar style={{ height: "320px" }}>
-                        <div className="dropdown-header mt-2">
-                          <h6 className="text-overflow text-muted mb-2 text-uppercase">
-                            Hisseler
-                          </h6>
-                        </div>
-
-                        <div className="notification-list">
-                          {filteredStocks !== null &&
-                            filteredStocks.map((stock) => (
-                              <a
-                                key={stock.id}
-                                href={`/hisseler/${stock.symbol}`}
-                                className="dropdown-item notify-item py-2"
-                              >
-                                <div className="d-flex">
-                                  <img
-                                    src={`/assets/stocks/logo/${stock.symbol}.svg`}
-                                    className="me-3 rounded-circle avatar-xs"
-                                    alt="user-pic"
-                                  />
-                                  <div className="flex-1">
-                                    <h6
-                                      className="m-0 text-truncate"
-                                      style={{ width: 250 }}
-                                    >
-                                      {stock.title}
-                                    </h6>
-                                    <span className="fs-11 mb-0 text-muted text-uppercase">
-                                      {stock.symbol}
-                                    </span>
-                                  </div>
-                                </div>
-                              </a>
-                            ))}
-                        </div>
-                      </SimpleBar>
-
-                      <div className="text-center pt-3 pb-1">
-                        <Link
-                          href="/hisseler"
-                          className="btn btn-primary btn-sm"
-                        >
-                          Tüm Hisseler{" "}
-                          <i className="ri-arrow-right-line ms-1"></i>
-                        </Link>
-                      </div>
-                    </div>
-                  </Form>
-                </DropdownMenu>
-              </Dropdown>
               {/* WebAppsDropdown */}
               {/* <WebAppsDropdown /> */}
               <FullScreenDropdown />
@@ -290,12 +204,15 @@ function Header({ headerClass }) {
               {session?.user ? (
                 <ProfileDropdown user={user} />
               ) : (
-                <button
-                  className="btn btn-primary waves-effect waves-light"
-                  onClick={() => signIn()}
-                >
-                  Giriş Yap
-                </button>
+                <div className="ms-1 header-item d-none d-sm-flex">
+                  <button
+                    onClick={() => signIn()}
+                    type="button"
+                    className="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
+                  >
+                    <i className="mdi mdi-account fs-22"></i>
+                  </button>
+                </div>
               )}
             </div>
           </div>
