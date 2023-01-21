@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState, useContext } from "react";
 
 function LoginPage() {
-  // const { loading, error, isAuthenticated, login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,13 +20,27 @@ function LoginPage() {
   //   }
   // }, [isAuthenticated, error, loading]);
 
+  // const submitHandler = async (e) => {
+  //   e.preventDefault();
+  //   const result = await signIn("credentials", {
+  //     username: email,
+  //     password: password,
+  //     redirect: true,
+  //     callbackUrl: "/",
+  //   });
+  // };
+
   const submitHandler = async (e) => {
-    const result = await signIn("credentials", {
-      username: email,
-      password: password,
-      redirect: true,
-      callbackUrl: "/",
-    });
+    e.preventDefault();
+    signIn("credentials", { email, password, redirect: false, callbackUrl:"/" }).then(
+      ({ ok, error }) => {
+        if (ok) {
+            router.push("/");
+        } else {
+          console.log(error);
+        }
+      }
+    );
   };
   return (
     <>

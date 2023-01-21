@@ -12,30 +12,16 @@ export const authOptions = {
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        username: {
-          label: "Mail",
-          type: "text",
-          placeholder: "Mail Adresini gir",
-        },
-        password: {
-          label: "Şifre",
-          type: "password",
-          placeholder: "Şifreni gir",
-        },
+        email: { label: "Email", type: "email", placeholder: "email" },
+        password: { label: "Şifre", type: "password" },
       },
       async authorize(credentials, req) {
-        const { username, password } = credentials;
         const res = await fetch(
-          `https://hisse-hedef.herokuapp.com/api/token/`,
+          `https://api.hissehedef.com/token/`,
           {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              username,
-              password,
-            }),
+            body: JSON.stringify(credentials),
+            headers: { "Content-Type": "application/json" },
           }
         );
 
