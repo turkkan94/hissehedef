@@ -32,10 +32,10 @@ function LoginPage() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    signIn("credentials", { email, password, redirect: false, callbackUrl:"/" }).then(
+    signIn("credentials", { username: email, password, redirect: false }).then(
       ({ ok, error }) => {
         if (ok) {
-            router.push("/");
+          router.push("/");
         } else {
           console.log(error);
         }
