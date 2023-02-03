@@ -1,5 +1,4 @@
 import React, { use } from "react";
-import Head from "./head";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -53,7 +52,6 @@ function StockPage({ params: { symbol } }) {
 
   return (
     <>
-      <Head title={stockSingle ? stockSingle.seo_title : stockQuote.longName} />
       <div className="page-content">
         <div className="container-fluid">
           <BreadCrumb title={symbol} pageTitle="Hisseler" />

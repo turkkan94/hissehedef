@@ -31,27 +31,13 @@ async function Home() {
           <div className="row mt-4">
             <Widgets indices={indices} />
           </div>
-          {/* <div className="row">
-            <MyPortfolio />
-            <div className="col-xxl-9 order-xxl-0 order-first col">
-              <div className="row">
-                <Widgets />
-              </div>
-              <MarketGraph />
-            </div>
-          </div> */}
           <div className="row">
             <div className="col-xxl-9">
               <StockList stocksData={stocks} />
             </div>
             <div className="col-xxl-3">Buraya güzel şeyler gelecek</div>
-            {/* <Trading /> */}
           </div>
-          <div className="row">
-            {/* <RecentActivity /> */}
-            {/* <TopPerformers /> */}
-            {/* <NewsFeed /> */}
-          </div>
+          <div className="row"></div>
         </div>
       </div>
     </>
