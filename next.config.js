@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
   experimental: {
     appDir: true,
-    serverComponentsExternalPackages: ["react-bootstrap", "reactstrap"],
   },
   env: {
     MAIN_API: "https://api.hissehedef.com",
