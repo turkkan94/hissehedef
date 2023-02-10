@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -69,7 +69,7 @@ export default function ProfilePage() {
         }
       );
       if (res.data) {
-        // router.push("/profil");
+        router.push("/profil");
       }
     } catch (error) {
       console.log(error.response);
