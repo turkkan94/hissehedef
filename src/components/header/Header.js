@@ -252,20 +252,23 @@ export default function Header({
               </button>
             )}
             {/* <!-- Monochrome Mode Toggle --> */}
-            <button className="monochrome-toggle btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-              <i className="fa-solid fa-palette bg-gradient-to-r from-sky-400 to-blue-600 bg-clip-text text-lg font-semibold text-transparent"></i>
-            </button>
-            {status == "loading"
-              ? ""
-              : session == null && (
-                  <button
-                    onClick={openModal}
-                    className="btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
-                  >
-                    <span>Giriş</span>
-                    <i className="fa-solid fa-user"></i>
-                  </button>
-                )}
+            {status == "loading" ? (
+              ""
+            ) : session == null ? (
+              <button
+                onClick={openModal}
+                className="btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
+              >
+                <span>Giriş</span>
+                <i className="fa-solid fa-user"></i>
+              </button>
+            ) : (
+              <button className="monochrome-toggle btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                <a href="/profil">
+                  <i className="fa-solid fa-user bg-gradient-to-r from-sky-400 to-blue-600 bg-clip-text text-lg font-semibold text-transparent"></i>
+                </a>
+              </button>
+            )}
             <Transition appear show={isOpen} as={Fragment}>
               <Dialog
                 as="div"
