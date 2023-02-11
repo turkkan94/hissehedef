@@ -7,11 +7,11 @@ async function getSingleSector(slug) {
 
 export default async function Head({ params: { slug } }) {
   const sector = await getSingleSector(slug);
-  seoTitle = sector?.seo_title + " Sektöründeki Hisseler";
+  const seoTitle = sector?.seo_title + " Sektöründeki Hisseler";
 
   return (
     <>
-      <title>{sector?.seo_title}</title>
+      <title>{seoTitle}</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
       <meta name="description" content={sector?.short_description} />
       <link
