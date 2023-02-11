@@ -21,7 +21,7 @@ export default function StockList({ stocks, sectors }) {
           Hisseler
         </h1>
       </div>
-      <div className="is-scrollbar-hidden overflow-x-auto">
+      {/* <div className="is-scrollbar-hidden overflow-x-auto">
         <div className="flex w-max space-x-3">
           <a
             href="#"
@@ -49,7 +49,7 @@ export default function StockList({ stocks, sectors }) {
             </a>
           ))}
         </div>
-      </div>
+      </div> */}
       <div className="mt-4 grid grid-cols-1 gap-4 sm:mt-5 sm:gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:mt-6 lg:gap-6">
         {(filteredStocks || []).map((item, key) => (
           <StockCard key={key} stock={item} sectors={sectors} />

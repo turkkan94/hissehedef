@@ -18,7 +18,7 @@ export default function SectorCard({ sector }) {
                 {sector.title}
               </h4>
             </div>
-            <p className="text-xs+">{sector.short_description}</p>
+            <p className="text-xs+">{sector?.stocks.length} Hisse</p>
           </div>
         </div>
       </div>

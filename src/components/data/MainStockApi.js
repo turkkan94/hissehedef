@@ -8,16 +8,41 @@ const getSingleStock = async (symbol) => {
   }
 };
 
-const getStockList = async () => {
+const getStockList = async (page) => {
+  let res;
   try {
-    const res = await fetch(`${process.env.MAIN_API}/stocks/`);
+    if (page) {
+      res = await fetch(`${process.env.MAIN_API}/stocks/?page=${page}`);
+    } else {
+      res = await fetch(`${process.env.MAIN_API}/stocks/`);
+    }
+    const stockList = await res.json();
+    return stockList;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getStockListBySector = async (sector_id, page) => {
+  let res;
+  try {
+    if (page) {
+      res = await fetch(
+        `${process.env.MAIN_API}/stocks/?sector=${sector_id}&page=${page}`
+      );
+    } else {
+      res = await fetch(`${process.env.MAIN_API}/stocks/?sector=${sector_id}`);
+    }
+
     if (res.status == 200) {
       const stockList = await res.json();
       return stockList;
     } else {
-      throw `Hisse listesi alınırken hata: ${res.status}`;
+      throw `Sektöre göre hisse verileri alınırken hata: ${res.status}`;
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const getSectorList = async () => {
@@ -48,4 +73,10 @@ const getSingleSector = async (slug) => {
   }
 };
 
-export { getSingleStock, getStockList, getSectorList, getSingleSector };
+export {
+  getSingleStock,
+  getStockList,
+  getStockListBySector,
+  getSectorList,
+  getSingleSector,
+};

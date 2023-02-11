@@ -19,11 +19,11 @@ export default function StockCard({ stock, sectors }) {
           </div>
           <div>
             <div className="badge rounded-full bg-white text-slate-800 dark:bg-navy-600 dark:text-navy-50">
-              {sectors.map((item, id) => (
+              {/* {sectors.map((item, id) => (
                 <Link key={id} href={`/sektorler/${item.slug}`}>
                   {stock.sector.includes(item.id) && item.title}
                 </Link>
-              ))}
+              ))} */}
             </div>
           </div>
         </div>

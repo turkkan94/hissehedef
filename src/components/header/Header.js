@@ -67,7 +67,7 @@ export default function Header({
       fetch(`${process.env.MAIN_API}/stocks/?symbol=${value}`)
         .then((res) => res.json())
         .then((data) => {
-          setFilteredStocks(data);
+          setFilteredStocks(data.stocks);
         });
     }
   }, [value]);
