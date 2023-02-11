@@ -7,6 +7,7 @@ async function getSingleSector(slug) {
 
 export default async function Head({ params: { slug } }) {
   const sector = await getSingleSector(slug);
+  seoTitle = sector?.seo_title + " Sektöründeki Hisseler";
 
   return (
     <>
