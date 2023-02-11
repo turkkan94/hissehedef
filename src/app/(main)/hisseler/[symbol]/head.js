@@ -4,7 +4,9 @@ import { getSingleStock } from "@/components/data/MainStockApi";
 export default function Head({ params: { symbol } }) {
   const stock = React.use(getSingleStock(symbol));
   const seoTitle =
-    stock?.symbol.toUpperCase() + " Hisse Analiz ve Yorumlar - " + stock?.title;
+    stock?.symbol?.toUpperCase() +
+    " Hisse Analiz ve Yorumlar - " +
+    stock?.title;
   return (
     <>
       <title>{seoTitle}</title>
