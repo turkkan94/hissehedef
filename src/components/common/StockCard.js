@@ -1,13 +1,18 @@
 import React from "react";
 import Link from "next/link";
+import ImageWithFallback from "./ImageWithFallback";
 export default function StockCard({ stock, sectors }) {
   return (
     <div className="card p-2 pb-3">
       <div className="relative w-full">
         <Link href={`/hisseler/${stock.symbol}`}>
-          <img
+          <ImageWithFallback
             className="h-56 w-full rounded-xl object-cover object-center"
+            key={stock.id}
+            width={274}
+            height={224}
             src={`/images/stocks/logo/${stock.symbol}.svg`}
+            fallbackSrc={`/images/200x200.png`}
             alt={stock.symbol}
           />
         </Link>
@@ -17,15 +22,17 @@ export default function StockCard({ stock, sectors }) {
               <i className="fa-regular fa-heart text-white"></i>
             </button>
           </div>
-          <div>
-            <div className="badge rounded-full bg-white text-slate-800 dark:bg-navy-600 dark:text-navy-50">
-              {/* {sectors.map((item, id) => (
-                <Link key={id} href={`/sektorler/${item.slug}`}>
-                  {stock.sector.includes(item.id) && item.title}
-                </Link>
-              ))} */}
+          {sectors && (
+            <div>
+              <div className="badge rounded-full bg-white text-slate-800 dark:bg-navy-600 dark:text-navy-50">
+                {sectors.map((item, id) => (
+                  <Link key={id} href={`/sektorler/${item.slug}`}>
+                    {stock.sector.includes(item.id) && item.title}
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 

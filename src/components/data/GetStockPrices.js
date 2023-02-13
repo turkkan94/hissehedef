@@ -11,15 +11,29 @@ const getStockPrices = async (symbol, range) => {
   const close = stockPrice.chart.result[0].indicators.quote[0].close;
   let stockPriceSeries = [];
   for (let i = 0; i < timeList.length; i++) {
-    let obj = {
-      x: new Date(timeList[i] * 1000).toString(),
-      y: [
-        open[i].toFixed(2),
-        high[i].toFixed(2),
-        low[i].toFixed(2),
-        close[i].toFixed(2),
-      ],
-    };
+    let obj = {};
+    if (open[i] == null) {
+      obj = {
+        x: new Date(timeList[i] * 1000).toString(),
+        y: [
+          open[i - 1].toFixed(2),
+          high[i - 1].toFixed(2),
+          low[i - 1].toFixed(2),
+          close[i - 1].toFixed(2),
+        ],
+      };
+    } else {
+      obj = {
+        x: new Date(timeList[i] * 1000).toString(),
+        y: [
+          open[i].toFixed(2),
+          high[i].toFixed(2),
+          low[i].toFixed(2),
+          close[i].toFixed(2),
+        ],
+      };
+    }
+
     stockPriceSeries.push(obj);
   }
   return stockPriceSeries;

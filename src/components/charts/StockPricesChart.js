@@ -89,35 +89,6 @@ export default function StockPricesChart({ stockPriceSeries }) {
         },
       },
     },
-    tooltip: {
-      shared: true,
-      y: [
-        {
-          formatter: function (y) {
-            if (typeof y !== "undefined") {
-              return y.toFixed(0);
-            }
-            return y;
-          },
-        },
-        {
-          formatter: function (y) {
-            if (typeof y !== "undefined") {
-              return "₺" + y.toFixed(2) + "k";
-            }
-            return y;
-          },
-        },
-        {
-          formatter: function (y) {
-            if (typeof y !== "undefined") {
-              return y.toFixed(0) + " Sales";
-            }
-            return y;
-          },
-        },
-      ],
-    },
   };
   const series = [
     {
