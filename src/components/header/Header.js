@@ -298,7 +298,7 @@ export default function Header({
                       leaveFrom="opacity-100 scale-100"
                       leaveTo="opacity-0 scale-95"
                     >
-                      <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                      <Dialog.Panel className="card dark:border dark:border-[#364056] w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                         <div className="grid w-full grow grid-cols-1 place-items-center">
                           <div className="w-full max-w-[26rem] p-4 sm:px-5">
                             <div className="text-center">
