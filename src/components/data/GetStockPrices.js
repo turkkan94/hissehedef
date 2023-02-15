@@ -10,6 +10,7 @@ const getStockPrices = async (symbol, range) => {
   const high = stockPrice.chart.result[0].indicators.quote[0].high;
   const close = stockPrice.chart.result[0].indicators.quote[0].close;
   let stockPriceSeries = [];
+
   for (let i = 0; i < timeList.length; i++) {
     let obj = {};
     if (open[i] == null) {
