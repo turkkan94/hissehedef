@@ -1,7 +1,6 @@
 const getStockPrices = async (symbol, range) => {
   const resStockPrice = await fetch(
-    `https://query1.finance.yahoo.com/v8/finance/chart/${symbol.toUpperCase()}.IS?&interval=1d&range=${range}`,
-    { cache: "no-store" }
+    `https://query1.finance.yahoo.com/v8/finance/chart/${symbol.toUpperCase()}.IS?&interval=1d&range=${range}`
   );
 
   const stockPrice = await resStockPrice.json();

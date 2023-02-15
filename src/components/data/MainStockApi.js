@@ -1,8 +1,6 @@
 const getSingleStock = async (symbol) => {
   try {
-    const res = await fetch(`${process.env.MAIN_API}/stocks/${symbol}/`, {
-      cache: "force-cache",
-    });
+    const res = await fetch(`${process.env.MAIN_API}/stocks/${symbol}/`);
     const stockSingle = await res.json();
     return stockSingle;
   } catch (error) {
@@ -14,13 +12,9 @@ const getStockList = async (page) => {
   let res;
   try {
     if (page) {
-      res = await fetch(`${process.env.MAIN_API}/stocks/?page=${page}`, {
-        cache: "force-cache",
-      });
+      res = await fetch(`${process.env.MAIN_API}/stocks/?page=${page}`);
     } else {
-      res = await fetch(`${process.env.MAIN_API}/stocks/`, {
-        cache: "force-cache",
-      });
+      res = await fetch(`${process.env.MAIN_API}/stocks/`);
     }
     const stockList = await res.json();
     return stockList;
@@ -34,13 +28,10 @@ const getStockListBySector = async (sector_id, page) => {
   try {
     if (page) {
       res = await fetch(
-        `${process.env.MAIN_API}/stocks/?sector=${sector_id}&page=${page}`,
-        { cache: "force-cache" }
+        `${process.env.MAIN_API}/stocks/?sector=${sector_id}&page=${page}`
       );
     } else {
-      res = await fetch(`${process.env.MAIN_API}/stocks/?sector=${sector_id}`, {
-        cache: "force-cache",
-      });
+      res = await fetch(`${process.env.MAIN_API}/stocks/?sector=${sector_id}`);
     }
 
     if (res.status == 200) {
@@ -56,9 +47,7 @@ const getStockListBySector = async (sector_id, page) => {
 
 const getSectorList = async () => {
   try {
-    const res = await fetch(`${process.env.MAIN_API}/sectors/`, {
-      cache: "force-cache",
-    });
+    const res = await fetch(`${process.env.MAIN_API}/sectors/`);
     if (res.status == 200) {
       const sectorList = await res.json();
       return sectorList;
@@ -72,9 +61,7 @@ const getSectorList = async () => {
 
 const getSingleSector = async (slug) => {
   try {
-    const res = await fetch(`${process.env.MAIN_API}/sectors/${slug}/`, {
-      cache: "force-cache",
-    });
+    const res = await fetch(`${process.env.MAIN_API}/sectors/${slug}/`);
     if (res.status == 200) {
       const sectorSingle = await res.json();
       return sectorSingle;
