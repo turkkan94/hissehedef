@@ -97,7 +97,7 @@ export default function TargetPricesWidget({
                 <input
                   className="form-input mt-5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   placeholder="Rakam giriniz."
-                  type="number"
+                  type="float"
                   onChange={(e) => setBist100PE(e.target.value)}
                 />
               </label>
@@ -147,7 +147,7 @@ export default function TargetPricesWidget({
                 <input
                   className="form-input mt-5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   placeholder="Rakam giriniz."
-                  type="number"
+                  type="float"
                   onChange={(e) => setSectorPE(e.target.value)}
                 />
               </label>
@@ -197,7 +197,7 @@ export default function TargetPricesWidget({
                 <input
                   className="form-input w-full rounded-l-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                   placeholder="Son bilanço tarihindeki fiyat."
-                  type="number"
+                  type="float"
                   onChange={(e) => setLastBalancePrice(e.target.value)}
                 />
                 <div className="flex items-center justify-center rounded-r-lg border border-slate-300 px-3.5 font-inter dark:border-navy-450">
