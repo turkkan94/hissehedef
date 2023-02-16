@@ -15,7 +15,6 @@ import { notFound } from "next/navigation";
 export default function StockPage({ params: { symbol } }) {
   const stockSingle = use(getSingleStock(symbol));
   if (!stockSingle.id) return notFound();
-  const stockPriceSeries = use(getStockPrices(symbol, "30d"));
   const {
     stockPrice,
     stockSummary,
@@ -24,6 +23,7 @@ export default function StockPage({ params: { symbol } }) {
     period,
     totalStockHolderPercent,
   } = use(getStockQuoteSummary(symbol));
+  const stockPriceSeries = use(getStockPrices(symbol, "30d"));
 
   const EPS = estimatedFinancials(
     period,

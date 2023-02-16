@@ -85,7 +85,7 @@ export default function StockPricesChart({ stockPriceSeries }) {
       },
       labels: {
         formatter: function (value) {
-          return "₺" + value;
+          return "₺" + value.toFixed(2);
         },
       },
     },

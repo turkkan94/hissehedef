@@ -1,9 +1,11 @@
 const getStockPrices = async (symbol, range) => {
   const resStockPrice = await fetch(
-    `https://query1.finance.yahoo.com/v8/finance/chart/${symbol.toUpperCase()}.IS?&interval=1d&range=${range}`
+    `https://query1.finance.yahoo.com/v8/finance/chart/${symbol.toUpperCase()}.IS?&interval=1d&range=${range}`,
+    { next: { revalidate: 60 } }
   );
 
   const stockPrice = await resStockPrice.json();
+  const stockMeta = stockPrice.chart.result[0].meta;
   const timeList = stockPrice.chart.result[0].timestamp;
   const low = stockPrice.chart.result[0].indicators.quote[0].low;
   const open = stockPrice.chart.result[0].indicators.quote[0].open;
@@ -17,10 +19,10 @@ const getStockPrices = async (symbol, range) => {
       obj = {
         x: new Date(timeList[i] * 1000).toString(),
         y: [
-          open[i - 1].toFixed(2),
-          high[i - 1].toFixed(2),
-          low[i - 1].toFixed(2),
-          close[i - 1].toFixed(2),
+          stockMeta.regularMarketPrice.toFixed(2),
+          stockMeta.regularMarketPrice.toFixed(2),
+          stockMeta.regularMarketPrice.toFixed(2),
+          stockMeta.regularMarketPrice.toFixed(2),
         ],
       };
     } else {
