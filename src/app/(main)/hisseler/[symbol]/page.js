@@ -134,7 +134,7 @@ export default function StockPage({ params: { symbol } }) {
                     <i className="fa-solid fa-arrow-down h-4 w-4 text-red-500"></i>
                   )}
                   <p className="text-sm+ text-slate-800 dark:text-navy-100">
-                    {stockPrice.regularMarketChangePercent.toFixed(2)} %
+                    {(stockPrice.regularMarketChangePercent * 100).toFixed(2)} %
                   </p>
                 </div>
               </div>
