@@ -48,7 +48,7 @@ export default function MobileSearchBar({ useSharedMobileSearch }) {
           </svg>
         </button>
         <input
-          className="mobile-searchbar-input form-input h-8 w-full bg-transparent placeholder-slate-400 dark:placeholder-navy-300"
+          className="mobile-searchbar-input form-input placeholder:text-sm text-[16px] h-8 w-full bg-transparent placeholder-slate-400 dark:placeholder-navy-300"
           type="text"
           placeholder="Hisse ara..."
           value={value}
