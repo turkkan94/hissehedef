@@ -23,7 +23,7 @@ export default function TargetPricesWidget({
       toast("Hata ! Sektör Ortalama F/K değeri girmelisiniz.", {
         position: "top-right",
         hideProgressBar: true,
-        className: "bg-alarming text-white",
+        className: "text-slate-800",
       });
       return;
     }
@@ -31,7 +31,7 @@ export default function TargetPricesWidget({
       toast("Hata ! Bist 100 Ortalama F/K değeri girmelisiniz.", {
         position: "top-right",
         hideProgressBar: true,
-        className: "bg-danger text-white",
+        className: "text-slate-800",
       });
       return;
     }
