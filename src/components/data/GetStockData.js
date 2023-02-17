@@ -8,9 +8,17 @@ const getStockQuoteSummary = async (symbol) => {
     const stockData = await res.json();
     const stockPrice = stockData.quoteSummary.result[0].price;
     const stockSummary = stockData.quoteSummary.result[0].summaryDetail;
-    const stockBalanceQuarterly =
+    const stockBalanceData =
       stockData.quoteSummary.result[0].balanceSheetHistoryQuarterly
         .balanceSheetStatements;
+
+    let stockBalanceQuarterly = [];
+
+    for (let i = 0; i < stockBalanceData.length; i++) {
+      if (stockBalanceData[i].cash) {
+        stockBalanceQuarterly.push(stockBalanceData[i]);
+      }
+    }
 
     const stockIncomeQuarterly =
       stockData.quoteSummary.result[0].incomeStatementHistoryQuarterly
