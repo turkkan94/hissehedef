@@ -16,7 +16,8 @@ const bist100 =
 
 const getStockData = async () => {
   const res = await fetch(
-    `https://query2.finance.yahoo.com/v7/finance/quote?symbols=${bist100}`
+    `https://query2.finance.yahoo.com/v7/finance/quote?symbols=${bist100}`,
+    { next: { revalidate: 60 } }
   );
   const stockData = await res.json();
   return stockData;
