@@ -57,13 +57,10 @@ export default function RootLayout({ children }) {
             strategy="afterInteractive"
             dangerouslySetInnerHTML={{
               __html: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-D02W567Q87', {
-            page_path: window.location.pathname,
-          });
-        `,
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-D02W567Q87');`,
             }}
           />
         </body>
