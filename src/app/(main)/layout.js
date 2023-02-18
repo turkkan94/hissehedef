@@ -1,8 +1,9 @@
 "use client";
 import "../../styles/app.css";
 import "react-toastify/dist/ReactToastify.css";
-import React from "react";
 
+import React from "react";
+import Script from "next/script";
 import { ToastContainer } from "react-toastify";
 import { SSRProvider } from "react-bootstrap";
 import { SessionProvider } from "next-auth/react";
@@ -49,6 +50,24 @@ export default function RootLayout({ children }) {
             </div>
             <ToastContainer />
           </SessionProvider>
+          <Script
+            strategy="afterInteractive"
+            src="https://www.googletagmanager.com/gtag/js?id=G-D02W567Q87"
+          />
+          <Script
+            id="google-analytics"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-D02W567Q87', {
+                page_path: window.location.pathname,
+              });
+            `,
+            }}
+          />
         </body>
       </html>
     </SSRProvider>

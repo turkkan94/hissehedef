@@ -12,6 +12,7 @@ import Header from "@/components/header/Header";
 import Sidebar from "@/components/sidebar/Sidebar";
 import MobileSearchBar from "@/components/mobilesearchbar/MobileSearchBar";
 import MobileMenu from "@/components/mobilemenu/MobileMenu";
+import Script from "next/script";
 
 export default function RootLayout({ children }) {
   const [isMobileMenu, setIsMobileMenu] = React.useState(false);
@@ -47,6 +48,24 @@ export default function RootLayout({ children }) {
             </div>
             <ToastContainer />
           </SessionProvider>
+          <Script
+            strategy="afterInteractive"
+            src="https://www.googletagmanager.com/gtag/js?id=G-D02W567Q87"
+          />
+          <Script
+            id="google-analytics"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-D02W567Q87', {
+            page_path: window.location.pathname,
+          });
+        `,
+            }}
+          />
         </body>
       </html>
     </SSRProvider>
