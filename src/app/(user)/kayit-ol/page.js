@@ -22,6 +22,7 @@ export default function Register() {
           last_name: lastName,
           email,
           password,
+          favorites: "",
           job: "",
           phone: "",
           twitter: "",

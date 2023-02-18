@@ -8,6 +8,23 @@ const nextConfig = {
     YAHOO_API_QUOTE:
       "https://query2.finance.yahoo.com/v7/finance/quote?symbols=",
   },
+  async rewrites() {
+    return [
+      {
+        source: "/sitemap.xml",
+        destination: "/api/sitemap.xml",
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      {
+        source: "/api/sitemap.xml",
+        destination: "/sitemap.xml",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
