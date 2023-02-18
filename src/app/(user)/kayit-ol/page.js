@@ -203,7 +203,7 @@ export default function Register() {
             type="submit"
             className="btn mt-5 w-full bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
           >
-            Giriş Yap
+            Kayıt Ol
           </button>
           <div className="mt-4 text-center text-xs+">
             <p className="line-clamp-1">
