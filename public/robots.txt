@@ -1,0 +1,20 @@
+# *
+User-agent: *
+Disallow: https://api.hissehedef.com/*
+
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.hissehedef.com
+
+# Sitemaps
+Sitemap: https://www.hissehedef.com/sitemap.xml
+Sitemap: https://www.hissehedef.com/stocks-sitemap.xml
+Sitemap: https://www.hissehedef.com/sectors-sitemap.xml
+Sitemap: https://www.hissehedef.com/stocks-sitemap-1.xml
+Sitemap: https://www.hissehedef.com/stocks-sitemap-2.xml
+Sitemap: https://www.hissehedef.com/stocks-sitemap-3.xml
+Sitemap: https://www.hissehedef.com/stocks-sitemap-4.xml
+Sitemap: https://www.hissehedef.com/stocks-sitemap-5.xml
