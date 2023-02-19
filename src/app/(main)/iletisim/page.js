@@ -1,14 +1,12 @@
 "use client";
 import { useState } from "react";
 import { sendContactForm } from "src/lib/api";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const initValues = { name: "", email: "", subject: "", message: "" };
 
 const initState = { isLoading: false, error: "", values: initValues };
 
-export default function Home() {
+export default function ContactPage() {
   const [state, setState] = useState(initState);
 
   const { values, isLoading, error } = state;
@@ -30,11 +28,6 @@ export default function Home() {
     try {
       await sendContactForm(values);
       setState(initState);
-      toast("Tebrikler ! Mesajınız gönderildi.", {
-        position: "top-right",
-        hideProgressBar: true,
-        className: "text-slate-800",
-      });
     } catch (error) {
       setState((prev) => ({
         ...prev,
