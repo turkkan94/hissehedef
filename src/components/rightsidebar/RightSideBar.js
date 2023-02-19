@@ -1,14 +1,16 @@
 "use client";
 import React, { useState } from "react";
-// import Image from "next/image";
-// import { useSession } from "next-auth/react";
-// import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 import { getStocksById } from "../data/MainStockApi";
+
 import FavoritesTable from "@/components/common/FavoritesTable";
 
-export default function RightSideBar({ useSharedSidebar, session }) {
+export default function RightSideBar({ useSharedSidebar }) {
   const [loading, setLoading] = useState(false);
+  const { data: session, status } = useSession();
   const [user, setUser] = React.useState();
   const [favorites, setFavorites] = React.useState([]);
   const { isSidebar, setIsSidebar } = useSharedSidebar();

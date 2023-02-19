@@ -1,33 +1,79 @@
+"use client";
 import "../../styles/app.css";
+import "react-toastify/dist/ReactToastify.css";
+
+import React from "react";
 import Script from "next/script";
-import MainApp from "@/components/dashboard/MainApp";
+import { ToastContainer } from "react-toastify";
+import { SSRProvider } from "react-bootstrap";
+import { SessionProvider } from "next-auth/react";
+import { useBetween } from "use-between";
 
-import { getServerSession } from "next-auth";
-import { authOptions } from "src/pages/api/auth/[...nextauth]";
+import Header from "@/components/header/Header";
+import Sidebar from "@/components/sidebar/Sidebar";
+import MobileMenu from "@/components/mobilemenu/MobileMenu";
+import RightSideBar from "@/components/rightsidebar/RightSideBar";
+import MobileSearchBar from "@/components/mobilesearchbar/MobileSearchBar";
 
-export default async function RootLayout({ children }) {
-  const session = await getServerSession(authOptions);
+export default function RootLayout({ children }) {
+  const [isMobileMenu, setIsMobileMenu] = React.useState(false);
+  const useIsMobileSearch = () => {
+    const [isMobileSearch, setIsMobileSearch] = React.useState(false);
+    return { isMobileSearch, setIsMobileSearch };
+  };
+  const useSharedMobileSearch = () => useBetween(useIsMobileSearch);
+
+  const useIsSidebar = () => {
+    const [isSidebar, setIsSidebar] = React.useState(false);
+    return { isSidebar, setIsSidebar };
+  };
+  const useSharedSidebar = () => useBetween(useIsSidebar);
+
   return (
-    <html lang="tr">
-      <head />
-      <body className="is-header-blur">
-        <MainApp children={children} session={session} />
-        <Script
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-D02W567Q87"
-        />
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
+    <SSRProvider>
+      <html lang="tr">
+        <head />
+        <body className="is-header-blur">
+          <SessionProvider>
+            <div
+              id="root"
+              className="min-h-100vh flex grow bg-slate-50 dark:bg-navy-900"
+            >
+              <Sidebar />
+              <Header
+                isMobileMenu={isMobileMenu}
+                setIsMobileMenu={setIsMobileMenu}
+                useSharedMobileSearch={useSharedMobileSearch}
+                useSharedSidebar={useSharedSidebar}
+              />
+              <MobileSearchBar useSharedMobileSearch={useSharedMobileSearch} />
+              <RightSideBar useSharedSidebar={useSharedSidebar} />
+              <main className="main-content w-full">
+                <div className="mt-4 grid grid-cols-1 gap-4 sm:mt-5 sm:gap-5 lg:mt-6 lg:gap-6">
+                  <MobileMenu isMobileMenu={isMobileMenu} />
+                  {children}
+                </div>
+              </main>
+            </div>
+            <ToastContainer />
+          </SessionProvider>
+          <Script
+            strategy="afterInteractive"
+            src="https://www.googletagmanager.com/gtag/js?id=G-D02W567Q87"
+          />
+          <Script
+            id="google-analytics"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-D02W567Q87');`,
-          }}
-        />
-      </body>
-    </html>
+            }}
+          />
+        </body>
+      </html>
+    </SSRProvider>
   );
 }
