@@ -13,6 +13,7 @@ import Sidebar from "@/components/sidebar/Sidebar";
 import MobileSearchBar from "@/components/mobilesearchbar/MobileSearchBar";
 import MobileMenu from "@/components/mobilemenu/MobileMenu";
 import Script from "next/script";
+import RightSideBar from "@/components/rightsidebar/RightSideBar";
 
 export default function RootLayout({ children }) {
   const [isMobileMenu, setIsMobileMenu] = React.useState(false);
@@ -20,8 +21,12 @@ export default function RootLayout({ children }) {
     const [isMobileSearch, setIsMobileSearch] = React.useState(false);
     return { isMobileSearch, setIsMobileSearch };
   };
-
   const useSharedMobileSearch = () => useBetween(useIsMobileSearch);
+  const useIsSidebar = () => {
+    const [isSidebar, setIsSidebar] = React.useState(false);
+    return { isSidebar, setIsSidebar };
+  };
+  const useSharedSidebar = () => useBetween(useIsSidebar);
   return (
     <SSRProvider>
       <html lang="tr">
@@ -37,8 +42,10 @@ export default function RootLayout({ children }) {
                 isMobileMenu={isMobileMenu}
                 setIsMobileMenu={setIsMobileMenu}
                 useSharedMobileSearch={useSharedMobileSearch}
+                useSharedSidebar={useSharedSidebar}
               />
               <MobileSearchBar useSharedMobileSearch={useSharedMobileSearch} />
+              <RightSideBar useSharedSidebar={useSharedSidebar} />
               <main className="main-content w-full">
                 <div className="mt-4 grid grid-cols-1 gap-4 sm:mt-5 sm:gap-5 lg:mt-6 lg:gap-6">
                   <MobileMenu isMobileMenu={isMobileMenu} />

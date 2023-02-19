@@ -108,7 +108,7 @@ export default function FavoritesTable({ favorites, user }) {
               </table>
             ) : (
               <div className="mx-4">
-                Henüz takip listenize hiç hisse eklemediniz.
+                Hisse bulunumadı ya da favorileriniz boş.
               </div>
             )}
           </div>
