@@ -53,7 +53,7 @@ export default function StockPage({ params: { symbol } }) {
   return (
     <div className="col-span-12">
       <BreadCrumb stock={stockSingle} />
-      <div className="grid grid-cols-12 px-[var(--margin-x)] gap-4 transition-all duration-[.25s] sm:gap-5 lg:gap-6">
+      <div className="grid grid-cols-12 px-16 gap-4 transition-all duration-[.25s] sm:gap-5 lg:gap-6">
         <div className="col-span-12 lg:col-span-8">
           <div className="flex flex-col sm:flex-row sm:space-x-7">
             <StockDetail stockSingle={stockSingle} stockPrice={stockPrice} />

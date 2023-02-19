@@ -25,7 +25,7 @@ export default async function Home() {
   const stocksData = await getStockData();
 
   return (
-    <div className="col-span-12 px-[var(--margin-x)] pb-8">
+    <div className="col-span-12 px-16 pb-8">
       <IndicesCards indices={indices} />
       <Bist100 stocksData={stocksData} />
     </div>

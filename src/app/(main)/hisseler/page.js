@@ -23,7 +23,7 @@ export default function StocksPage() {
   };
 
   return (
-    <div className="col-span-12 px-[var(--margin-x)] pb-8">
+    <div className="col-span-12 px-16 pb-8">
       <StockList stocks={stocks} sectors={sectors} />
       {resPerPage < count && (
         <div className="flex w-full mt-8">
