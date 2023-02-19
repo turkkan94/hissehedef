@@ -9,6 +9,11 @@ export default function IndicesCards({ indices }) {
   const indicesData = indices.quoteResponse.result;
   return (
     <div className="col-span-12">
+      <div className="mb-4">
+        <h1 className="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100">
+          Hisse Hedef
+        </h1>
+      </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 lg:gap-6">
         {(indicesData || []).map((item, key) => (
           <div key={key} className="card flex-row justify-between p-4">
