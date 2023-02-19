@@ -67,12 +67,12 @@ export default function FavoritesTable({ favorites, user }) {
         <div className="mt-3 space-y-3">
           <div className="is-scrollbar-hidden min-w-full overflow-x-auto">
             {filteredStocks?.length > 0 ? (
-              <table className="w-full text-left">
+              <table className="is-hoverable w-full text-left">
                 <tbody>
                   {filteredStocks.map((favorite, i) => (
                     <tr
                       key={i}
-                      className="border hover:bg-slate-100 border-transparent border-b-slate-200 dark:border-b-navy-500"
+                      className="border border-transparent border-b-slate-200 dark:border-b-navy-500"
                     >
                       <td className="whitespace-nowrap px-2 py-3 sm:px-3">
                         <a href={`/hisseler/${favorite.symbol}`}>
