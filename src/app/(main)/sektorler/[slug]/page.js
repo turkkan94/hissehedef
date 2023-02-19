@@ -32,7 +32,7 @@ export default function SectorPage({ params: { slug } }) {
 
   if (!sector) return notFound();
   return (
-    <div className="col-span-12 px-16 pb-8">
+    <div className="col-span-12 px-[var(--margin-x)] pb-8">
       <StockListSector stocks={stocks} sector={sector} />
       {resPerPage < count && (
         <div className="flex w-full mt-8">

@@ -6,7 +6,7 @@ export default function SectorsPage() {
   const sectors = React.use(getSectorList());
 
   return (
-    <div className="col-span-12 px-16 pb-8">
+    <div className="col-span-12 px-[var(--margin-x)] pb-8">
       <SectorList sectors={sectors} />
     </div>
   );

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function BreadCrumb({ stock }) {
   return (
-    <div className="flex items-center space-x-4 pb-4 lg:pb-6 px-16">
+    <div className="flex items-center space-x-4 pb-4 lg:pb-6 px-[var(--margin-x)]">
       <h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl capitalize">
         {stock.symbol.toUpperCase() + " - " + stock.title}
       </h2>

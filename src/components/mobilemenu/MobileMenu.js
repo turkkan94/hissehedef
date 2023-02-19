@@ -7,7 +7,9 @@ export default function MobileMenu({ isMobileMenu }) {
   return (
     <div
       className={
-        isMobileMenu ? "col-span-12 px-16" : "col-span-12 px-16 hidden"
+        isMobileMenu
+          ? "col-span-12 px-[var(--margin-x)]"
+          : "col-span-12 px-[var(--margin-x)] hidden"
       }
     >
       <div className="card col-span-12">
