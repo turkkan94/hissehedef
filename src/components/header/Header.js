@@ -12,8 +12,9 @@ export default function Header({
   setIsMobileMenu,
   useSharedMobileSearch,
   useSharedSidebar,
+  session,
 }) {
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
   const [colorTheme, setTheme] = useDarkMode();
   const { setIsMobileSearch } = useSharedMobileSearch();
   const { setIsSidebar } = useSharedSidebar();
@@ -80,7 +81,7 @@ export default function Header({
     signIn("credentials", { username: email, password, redirect: false }).then(
       ({ ok, error }) => {
         if (ok) {
-          router.push("/");
+          window.location.replace("/");
           setIsOpen(false);
         } else {
           console.log(error);
@@ -254,9 +255,7 @@ export default function Header({
               </button>
             )}
             {/* <!-- Monochrome Mode Toggle --> */}
-            {status == "loading" ? (
-              ""
-            ) : session == null ? (
+            {session == null ? (
               <button
                 onClick={openModal}
                 className="btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"

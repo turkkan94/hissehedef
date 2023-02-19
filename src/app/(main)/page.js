@@ -1,4 +1,3 @@
-import { Inter } from "@next/font/google";
 import IndicesCards from "@/components/dashboard/indicescards/IndicesCards";
 import Bist100 from "@/components/dashboard/bist100/Bist100";
 
