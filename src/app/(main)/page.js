@@ -2,8 +2,6 @@ import { Inter } from "@next/font/google";
 import IndicesCards from "@/components/dashboard/indicescards/IndicesCards";
 import Bist100 from "@/components/dashboard/bist100/Bist100";
 
-const inter = Inter({ subsets: ["latin"] });
-
 const getIndicesData = async () => {
   const res = await fetch(
     `https://query2.finance.yahoo.com/v7/finance/quote?symbols=XU100.IS%2CXU030.IS%2CXBANK.IS%2CUSDTRY=X`

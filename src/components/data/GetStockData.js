@@ -75,4 +75,13 @@ const getStockQuote = async (symbol) => {
   }
 };
 
-export { getStockQuoteSummary, getStockQuote };
+const getFavoritesData = async (favoriteList) => {
+  const res = await fetch(
+    `https://query2.finance.yahoo.com/v7/finance/quote?symbols=${favoriteList}`,
+    { next: { revalidate: 60 } }
+  );
+  const stockData = await res.json();
+  return stockData;
+};
+
+export { getStockQuoteSummary, getStockQuote, getFavoritesData };

@@ -1,5 +1,4 @@
 import React, { use } from "react";
-import Image from "next/image";
 
 import { getSingleStock } from "@/components/data/MainStockApi";
 import { getStockQuoteSummary } from "@/components/data/GetStockData";
@@ -10,10 +9,12 @@ import StockPricesChart from "@/components/charts/StockPricesChart";
 import TargetPricesWidget from "@/components/common/TargetPricesWidget";
 import BarCharts from "@/components/charts/BarCharts";
 import BreadCrumb from "@/components/common/BreadCrumb";
+import StockDetail from "@/components/common/StockDetail";
 import { notFound } from "next/navigation";
 
 export default function StockPage({ params: { symbol } }) {
   const stockSingle = use(getSingleStock(symbol));
+
   if (!stockSingle.id) return notFound();
   const {
     stockPrice,
@@ -55,94 +56,7 @@ export default function StockPage({ params: { symbol } }) {
       <div className="grid grid-cols-12 px-[var(--margin-x)] gap-4 transition-all duration-[.25s] sm:gap-5 lg:gap-6">
         <div className="col-span-12 lg:col-span-8">
           <div className="flex flex-col sm:flex-row sm:space-x-7">
-            <div className="flex flex-row justify-start items-center sm:hidden">
-              <div className="mr-4">
-                <Image
-                  src={`/images/stocks/logo/${stockSingle.symbol}.svg`}
-                  className="rounded-full"
-                  width={56}
-                  height={56}
-                  alt={stockSingle.symbol}
-                />
-              </div>
-              <div>
-                <div className="flex items-center space-x-1">
-                  <p className="text-2xl font-semibold text-slate-700 dark:text-navy-100">
-                    {stockPrice.regularMarketPrice.toLocaleString("tr-TR")}₺
-                  </p>
-                  <button className="btn h-6 w-6 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                      />
-                    </svg>
-                  </button>
-                </div>
-                <p className="text-xs text-slate-400 dark:text-navy-300">
-                  Gecikmeli veri!
-                </p>
-              </div>
-            </div>
-            <div className="hidden sm:flex shrink-0 flex-col items-center sm:items-start">
-              <img
-                src={`/images/stocks/logo/${stockSingle.symbol}.svg`}
-                className="rounded-full"
-              />
-              <div className="mt-4">
-                <div className="flex items-center space-x-1">
-                  <p className="text-2xl font-semibold text-slate-700 dark:text-navy-100">
-                    {stockPrice.regularMarketPrice.toLocaleString("tr-TR")}₺
-                  </p>
-                  <button className="btn h-6 w-6 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                      />
-                    </svg>
-                  </button>
-                </div>
-                <p className="text-xs text-slate-400 dark:text-navy-300">
-                  Gecikmeli veri!
-                </p>
-              </div>
-              <div className="mt-3 flex items-center space-x-2">
-                <div className="ax-transparent-gridline w-28">
-                  <img src="/images/web/line-chart.png" />
-                </div>
-                <div className="flex items-center space-x-0.5">
-                  {stockPrice.regularMarketChangePercent > 0 ? (
-                    <i className="fa-solid fa-arrow-up h-4 w-4 text-success"></i>
-                  ) : (
-                    <i className="fa-solid fa-arrow-down h-4 w-4 text-red-500"></i>
-                  )}
-                  <p className="text-sm+ text-slate-800 dark:text-navy-100">
-                    {(stockPrice.regularMarketChangePercent * 100).toFixed(2)} %
-                  </p>
-                </div>
-              </div>
-              <button className="btn mt-4 w-full space-x-2 rounded-full border border-slate-300 px-3 text-xs+ font-medium text-slate-700 hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-100 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90">
-                <i className="fa-regular fa-heart text-slate-400 dark:text-navy-300"></i>
-                <span> Favorilere Ekle</span>
-              </button>
-            </div>
+            <StockDetail stockSingle={stockSingle} stockPrice={stockPrice} />
             <div className="ax-transparent-gridline grid w-full grid-cols-1">
               <StockPricesChart stockPriceSeries={stockPriceSeries} />
             </div>

@@ -73,10 +73,33 @@ const getSingleSector = async (slug) => {
   }
 };
 
+const setFavoriteList = async (list) => {
+  const res = await fetch(
+    `${process.env.MAIN_API}/filtered-stocks/?ids=${list}`
+  );
+  const stocks = await res.json();
+  let symbols = [];
+  for (let i = 0; i < list.length; i++) {
+    symbols.push(stocks[i].symbol.toUpperCase() + ".IS");
+  }
+  const favoriteList = symbols.join("%2C");
+  return favoriteList;
+};
+
+const getStocksById = async (list) => {
+  const res = await fetch(
+    `${process.env.MAIN_API}/filtered-stocks/?ids=${list}`
+  );
+  const stocks = await res.json();
+  return stocks;
+};
+
 export {
   getSingleStock,
   getStockList,
   getStockListBySector,
   getSectorList,
   getSingleSector,
+  getStocksById,
+  setFavoriteList,
 };

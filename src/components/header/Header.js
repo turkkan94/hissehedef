@@ -11,10 +11,12 @@ export default function Header({
   isMobileMenu,
   setIsMobileMenu,
   useSharedMobileSearch,
+  useSharedSidebar,
 }) {
   const { data: session, status } = useSession();
   const [colorTheme, setTheme] = useDarkMode();
   const { setIsMobileSearch } = useSharedMobileSearch();
+  const { setIsSidebar } = useSharedSidebar();
   let [isOpen, setIsOpen] = React.useState(false);
 
   function closeModal() {
@@ -263,11 +265,34 @@ export default function Header({
                 <i className="fa-solid fa-user"></i>
               </button>
             ) : (
-              <button className="monochrome-toggle btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                <a href="/profil">
-                  <i className="fa-solid fa-user bg-gradient-to-r from-sky-400 to-blue-600 bg-clip-text text-lg font-semibold text-transparent"></i>
-                </a>
-              </button>
+              <div className="flex flex-row items-center">
+                <button className="monochrome-toggle btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                  <a href="/profil">
+                    <i className="fa-solid fa-user bg-gradient-to-r from-sky-400 to-blue-600 bg-clip-text text-lg font-semibold text-transparent"></i>
+                  </a>
+                </button>
+                <button
+                  data-toggle="drawer"
+                  data-target="#right-sidebar"
+                  className="btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
+                  onClick={() => setIsSidebar(true)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5.5 w-5.5 text-slate-500 dark:text-navy-100"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                      d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                    />
+                  </svg>
+                </button>
+              </div>
             )}
             <Transition appear show={isOpen} as={Fragment}>
               <Dialog
