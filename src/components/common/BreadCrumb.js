@@ -4,9 +4,9 @@ import Link from "next/link";
 export default function BreadCrumb({ stock }) {
   return (
     <div className="flex items-center space-x-4 pb-4 lg:pb-6 px-[var(--margin-x)]">
-      <h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl capitalize">
+      <h1 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl capitalize">
         {stock.symbol.toUpperCase() + " - " + stock.title}
-      </h2>
+      </h1>
       <div className="hidden h-full py-1 sm:flex">
         <div className="h-full w-px bg-slate-300 dark:bg-navy-600"></div>
       </div>
