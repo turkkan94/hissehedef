@@ -160,7 +160,7 @@ export default function Sidebar() {
             {/* <!-- Forms --> */}
             <Tippy content="İletişim" placement="right">
               <a
-                href="#"
+                href="/iletisim"
                 data-tooltip="Forms"
                 data-placement="right"
                 className={

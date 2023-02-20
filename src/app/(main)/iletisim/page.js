@@ -11,14 +11,14 @@ export default function ContactPage() {
 
   const { values, isLoading, error } = state;
 
-  const handleChange = ({ target }) =>
-    setState((prev) => ({
-      ...prev,
-      values: {
-        ...prev.values,
-        [target.name]: target.value,
-      },
-    }));
+  //   const handleChange = ({ target }) =>
+  //     setState((prev) => ({
+  //       ...prev,
+  //       values: {
+  //         ...prev.values,
+  //         [target.name]: target.value,
+  //       },
+  //     }));
 
   const onSubmit = async () => {
     setState((prev) => ({
@@ -58,8 +58,8 @@ export default function ContactPage() {
                   placeholder="Adınız ve soyadınızı giriniz."
                   type="text"
                   name="name"
-                  value={values.name}
-                  onChange={handleChange}
+                  //   value={values.name}
+                  //   onChange={handleChange}
                 />
                 <span className="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                   <i className="fa-regular fa-building text-base"></i>
@@ -75,8 +75,8 @@ export default function ContactPage() {
                     placeholder="Email adresinizi giriniz."
                     type="text"
                     name="email"
-                    value={values.email}
-                    onChange={handleChange}
+                    // value={values.email}
+                    // onChange={handleChange}
                   />
                   <span className="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                     <i className="fa-regular fa-envelope text-base"></i>
@@ -91,8 +91,8 @@ export default function ContactPage() {
                     placeholder="Mailin genel konusu."
                     type="text"
                     name="subject"
-                    value={values.subject}
-                    onChange={handleChange}
+                    // value={values.subject}
+                    // onChange={handleChange}
                   />
                   <span className="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                     <i className="fa-solid fa-comment"></i>{" "}
@@ -107,8 +107,8 @@ export default function ContactPage() {
                 placeholder="Konunun detaylarını yazabilirsiniz."
                 className="form-textarea mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent p-2.5 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                 name="message"
-                value={values.message}
-                onChange={handleChange}
+                // value={values.message}
+                // onChange={handleChange}
               ></textarea>
             </label>
 
