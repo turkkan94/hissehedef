@@ -1,24 +1,19 @@
 "use client";
 import { useState } from "react";
 import { sendContactForm } from "src/lib/api";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const initValues = { name: "", email: "", subject: "", message: "" };
-
-const initState = { isLoading: false, error: "", values: initValues };
+const initState = { isLoading: false, error: "" };
 
 export default function ContactPage() {
   const [state, setState] = useState(initState);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
 
-  const { values, isLoading, error } = state;
-
-  //   const handleChange = ({ target }) =>
-  //     setState((prev) => ({
-  //       ...prev,
-  //       values: {
-  //         ...prev.values,
-  //         [target.name]: target.value,
-  //       },
-  //     }));
+  const { isLoading, error } = state;
 
   const onSubmit = async () => {
     setState((prev) => ({
@@ -26,8 +21,17 @@ export default function ContactPage() {
       isLoading: true,
     }));
     try {
+      const values = { name, email, subject, message };
       await sendContactForm(values);
-      setState(initState);
+      setName("");
+      setEmail("");
+      setSubject("");
+      setMessage("");
+      toast("Tebrikler ! Mesajınız gönderildi.", {
+        position: "top-right",
+        hideProgressBar: true,
+        className: "text-slate-800",
+      });
     } catch (error) {
       setState((prev) => ({
         ...prev,
@@ -58,8 +62,8 @@ export default function ContactPage() {
                   placeholder="Adınız ve soyadınızı giriniz."
                   type="text"
                   name="name"
-                  //   value={values.name}
-                  //   onChange={handleChange}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
                 <span className="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                   <i className="fa-regular fa-building text-base"></i>
@@ -75,8 +79,8 @@ export default function ContactPage() {
                     placeholder="Email adresinizi giriniz."
                     type="text"
                     name="email"
-                    // value={values.email}
-                    // onChange={handleChange}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <span className="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                     <i className="fa-regular fa-envelope text-base"></i>
@@ -91,8 +95,8 @@ export default function ContactPage() {
                     placeholder="Mailin genel konusu."
                     type="text"
                     name="subject"
-                    // value={values.subject}
-                    // onChange={handleChange}
+                    value={subject}
+                    onChange={(e) => setSubject(e.target.value)}
                   />
                   <span className="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                     <i className="fa-solid fa-comment"></i>{" "}
@@ -107,26 +111,21 @@ export default function ContactPage() {
                 placeholder="Konunun detaylarını yazabilirsiniz."
                 className="form-textarea mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent p-2.5 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                 name="message"
-                // value={values.message}
-                // onChange={handleChange}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
               ></textarea>
             </label>
 
             <div className="flex justify-center space-x-2">
               <button
-                disabled={
-                  !values.name ||
-                  !values.email ||
-                  !values.subject ||
-                  !values.message
-                }
+                disabled={!name || !email || !subject || !message}
                 onClick={onSubmit}
                 className="btn space-x-2 bg-primary w-[100px] font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
               >
                 {!isLoading ? (
                   <span>Gönder</span>
                 ) : (
-                  <div class="spinner h-4 w-4 animate-spin rounded-full border-[3px] border-slate-150 border-r-slate-500 dark:border-navy-500 dark:border-r-navy-300"></div>
+                  <div className="spinner h-4 w-4 animate-spin rounded-full border-[3px] border-slate-150 border-r-slate-500 dark:border-navy-500 dark:border-r-navy-300"></div>
                 )}
               </button>
             </div>
