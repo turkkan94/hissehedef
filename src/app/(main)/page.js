@@ -1,4 +1,3 @@
-import { Inter } from "@next/font/google";
 import IndicesCards from "@/components/dashboard/indicescards/IndicesCards";
 import Bist100 from "@/components/dashboard/bist100/Bist100";
 
@@ -20,6 +19,60 @@ const getStockData = async () => {
   const stockData = await res.json();
   return stockData;
 };
+
+export const metadata = {
+  title: "Hisse Hedef - Bist 100 Hisseleri ve Temel Analiz",
+  description:
+    "Hisse Hedef platformunu kullanarak Türkiye borsalarındaki hisselerin temel analizlerini daha kolay yapabilirsiniz.",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  },
+  alternates: {
+    canonical: "https://www.hissehedef.com",
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
+  twitter: {
+    card: "summary",
+    title: "Hisse Hedef - Bist 100 Hisseleri ve Temel Analiz",
+    description:
+      "Hisse Hedef platformunu kullanarak Türkiye borsalarındaki hisselerin temel analizlerini daha kolay yapabilirsiniz.",
+    url: "https://www.hissehedef.com",
+    creator: "@hissehedefcom",
+    images: ["https://www.hissehedef.com/images/web/bist100.jpg"],
+  },
+  openGraph: {
+    title: "Hisse Hedef - Bist 100 Hisseleri ve Temel Analiz",
+    description:
+      "Hisse Hedef platformunu kullanarak Türkiye borsalarındaki hisselerin temel analizlerini daha kolay yapabilirsiniz.",
+    url: "https://www.hissehedef.com",
+    siteName: "Hisse Hedef",
+    images: [
+      {
+        url: "https://www.hissehedef.com/images/web/bist100.jpg",
+        width: 600,
+        height: 600,
+        alt: "Hisse Hedef",
+      },
+    ],
+    locale: "tr-TR",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+    },
+  },
+};
+
 export default async function Home() {
   const indices = await getIndicesData();
   const stocksData = await getStockData();

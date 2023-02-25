@@ -1,19 +1,18 @@
 "use client";
 import React from "react";
 import StockCard from "./StockCard";
-export default function StockList({ stocks, sectors }) {
-  const [filteredStocks, setFilteredStocks] = React.useState(stocks);
-  const [sectorId, setSectorId] = React.useState(0);
+import PaginationComp from "@/components/common/PaginationComp";
+import { useSearchParams } from "next/navigation";
 
-  React.useEffect(() => {
-    if (sectorId == 0) {
-      setFilteredStocks(stocks);
-    } else {
-      setFilteredStocks(
-        stocks.filter((item) => item.sector.includes(sectorId * 1))
-      );
-    }
-  }, [sectorId]);
+import { getStockList, getSectorList } from "@/components/data/MainStockApi";
+
+export default function StockList() {
+  const searchParams = useSearchParams();
+  let page = searchParams.get("page");
+  page = Number(page);
+  const { stocks, count, resPerPage } = React.use(getStockList(page));
+  const sectors = React.use(getSectorList());
+
   return (
     <>
       <div className="flex items-center justify-between pb-5">
@@ -21,40 +20,18 @@ export default function StockList({ stocks, sectors }) {
           Hisseler
         </h1>
       </div>
-      {/* <div className="is-scrollbar-hidden overflow-x-auto">
-        <div className="flex w-max space-x-3">
-          <a
-            href="#"
-            className={
-              sectorId == 0
-                ? "tag h-7 rounded-full bg-primary text-xs+ text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
-                : "tag h-7 rounded-full bg-slate-150 text-xs+ text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-700 dark:text-navy-100 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
-            }
-            onClick={() => setSectorId(0)}
-          >
-            Tümü
-          </a>
-          {sectors.map((sector, id) => (
-            <a
-              key={id}
-              href="#"
-              className={
-                sector?.id == sectorId
-                  ? "tag h-7 rounded-full bg-primary text-xs+ text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
-                  : "tag h-7 rounded-full bg-slate-150 text-xs+ text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-700 dark:text-navy-100 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
-              }
-              onClick={() => setSectorId(sector?.id)}
-            >
-              {sector.title}
-            </a>
-          ))}
-        </div>
-      </div> */}
       <div className="mt-4 grid grid-cols-1 gap-4 sm:mt-5 sm:gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:mt-6 lg:gap-6">
-        {(filteredStocks || []).map((item, key) => (
+        {(stocks || []).map((item, key) => (
           <StockCard key={key} stock={item} sectors={sectors} />
         ))}
       </div>
+      {resPerPage < count && (
+        <div className="flex w-full mt-8">
+          <div className="mx-auto">
+            <PaginationComp page={page} resPerPage={resPerPage} count={count} />
+          </div>
+        </div>
+      )}
     </>
   );
 }

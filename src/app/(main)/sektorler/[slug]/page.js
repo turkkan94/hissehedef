@@ -1,57 +1,74 @@
-"use client";
-import React from "react";
-import { useSearchParams } from "next/navigation";
-
+import { getSingleSector } from "@/components/data/MainStockApi";
 import StockListSector from "@/components/common/StockListSector";
-import {
-  getStockListBySector,
-  getSingleSector,
-  getSectorList,
-} from "@/components/data/MainStockApi";
-import { notFound } from "next/navigation";
-import Pagination from "react-js-pagination";
+import { redirect } from "next/navigation";
+
+export async function generateMetadata({ params: { slug } }) {
+  const sector = await getSingleSector(slug);
+  if (sector.detail) {
+    redirect("/404");
+  }
+  const seo_siteName = "Hisse Hedef";
+  const seo_title = `${sector?.seo_title} Sektöründeki Hisseler ve Şirketler`;
+  const seo_description = `${sector?.seo_title} sektöründeki şirketlerin listesini bulabilirsiniz. Hisseler hakkında temel analiz bilgileri tamamı ile ücretsiz sunulmaktadır.`;
+  const seo_image = `https://www.hissehedef.com/images/web/twitter-card.jpg`;
+  const seo_url = `https://www.hissehedef.com/sektorler/${sector?.slug}`;
+  return {
+    title: seo_title,
+    description: seo_description,
+    creator: "Ahmet TÜRKKAN",
+    publisher: "Ahmet TÜRKKAN",
+    viewport: {
+      width: "device-width",
+      initialScale: 1,
+      maximumScale: 1,
+    },
+    alternates: {
+      canonical: seo_url,
+    },
+    icons: {
+      icon: "/favicon.ico",
+    },
+    twitter: {
+      card: "summary",
+      title: seo_title,
+      description: seo_description,
+      url: seo_url,
+      creator: "@hissehedefcom",
+      images: [seo_image],
+    },
+    openGraph: {
+      title: seo_title,
+      description: seo_description,
+      url: seo_url,
+      siteName: seo_siteName,
+      images: [
+        {
+          url: seo_image,
+          width: 600,
+          height: 600,
+          alt: sector?.seo_title,
+        },
+      ],
+      locale: "tr-TR",
+      type: "website",
+    },
+    robots: {
+      index: true,
+      follow: true,
+      nocache: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        noimageindex: false,
+      },
+    },
+  };
+}
 
 export default function SectorPage({ params: { slug } }) {
-  const searchParams = useSearchParams();
-  let page = searchParams.get("page");
-  page = Number(page);
-
-  const sector = React.use(getSingleSector(slug));
-
-  const { stocks, count, resPerPage } = React.use(
-    getStockListBySector(sector.id, page)
-  );
-
-  const handlePageClick = (pageNumber) => {
-    if (pageNumber == 1) {
-      window.location.replace(`/sektorler/${slug}`);
-    } else {
-      window.location.replace(`/sektorler/${slug}?page=${pageNumber}`);
-    }
-  };
-
-  if (!sector) return notFound();
   return (
     <div className="col-span-12 px-[var(--margin-x)] pb-8">
-      <StockListSector stocks={stocks} sector={sector} />
-      {resPerPage < count && (
-        <div className="flex w-full mt-8">
-          <div className="mx-auto">
-            <Pagination
-              activePage={page}
-              itemsCountPerPage={resPerPage}
-              totalItemsCount={count}
-              onChange={handlePageClick}
-              nextPageText={<i className="fa-solid fa-angles-right"></i>}
-              prevPageText={<i className="fa-solid fa-angles-left"></i>}
-              innerClass="pagination space-x-1.5"
-              activeLinkClass="bg-[#4f46e5] text-white hover:text-inherit"
-              linkClass="flex h-8 min-w-[2rem] items-center justify-center rounded-lg bg-slate-150 px-3 leading-tight transition-colors hover:bg-slate-300 focus:bg-slate-300 active:bg-slate-300/80 dark:bg-navy-500 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
-              hideFirstLastPages={true}
-            />
-          </div>
-        </div>
-      )}
+      <StockListSector slug={slug} />
     </div>
   );
 }

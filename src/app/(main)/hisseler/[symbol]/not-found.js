@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function NotFound() {
   return (
     <div className="grid grid-cols-1 place-items-center gap-12 p-6 lg:grid-cols-2 lg:gap-24">

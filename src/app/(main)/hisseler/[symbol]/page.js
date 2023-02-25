@@ -10,12 +10,79 @@ import TargetPricesWidget from "@/components/common/TargetPricesWidget";
 import BarCharts from "@/components/charts/BarCharts";
 import BreadCrumb from "@/components/common/BreadCrumb";
 import StockDetail from "@/components/common/StockDetail";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+
+export async function generateMetadata({ params: { symbol } }) {
+  const stock = await getSingleStock(symbol);
+  if (stock.detail) {
+    redirect("/404");
+  }
+  const seo_siteName = "Hisse Hedef";
+  const seo_title =
+    stock?.symbol?.toUpperCase() +
+    " Hisse Analiz ve Yorumlar - " +
+    stock?.title;
+  const seo_description = `${stock?.symbol} hisse yorum ve analizlerinin yanı sıra ${stock?.title} hedef fiyat hesaplamalarına ve temel analiz verilerine ulaşabilirisniz.`;
+  const seo_image = `https://www.hissehedef.com/images/stocks/img/${stock?.symbol}.png`;
+  const seo_url = `https://www.hissehedef.com/hisseler/${stock?.symbol}`;
+  return {
+    title: seo_title,
+    description: seo_description,
+    creator: "Ahmet TÜRKKAN",
+    publisher: "Ahmet TÜRKKAN",
+    viewport: {
+      width: "device-width",
+      initialScale: 1,
+      maximumScale: 1,
+    },
+    alternates: {
+      canonical: seo_url,
+    },
+    icons: {
+      icon: "/favicon.ico",
+    },
+    twitter: {
+      card: "summary",
+      title: seo_title,
+      description: seo_description,
+      url: seo_url,
+      creator: "@hissehedefcom",
+      images: [seo_image],
+    },
+    openGraph: {
+      title: seo_title,
+      description: seo_description,
+      url: seo_url,
+      siteName: seo_siteName,
+      images: [
+        {
+          url: seo_image,
+          width: 600,
+          height: 600,
+          alt: stock?.symbol,
+        },
+      ],
+      locale: "tr-TR",
+      type: "website",
+    },
+    robots: {
+      index: true,
+      follow: true,
+      nocache: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        noimageindex: false,
+      },
+    },
+  };
+}
 
 export default function StockPage({ params: { symbol } }) {
   const stockSingle = use(getSingleStock(symbol));
-
-  if (!stockSingle.id) return notFound();
+  if (stockSingle.detail) {
+    redirect("/404");
+  }
   const {
     stockPrice,
     stockSummary,

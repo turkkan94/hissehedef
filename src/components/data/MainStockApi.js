@@ -1,11 +1,7 @@
 const getSingleStock = async (symbol) => {
-  try {
-    const res = await fetch(`${process.env.MAIN_API}/stocks/${symbol}/`);
-    const stockSingle = await res.json();
-    return stockSingle;
-  } catch (error) {
-    console.log(error);
-  }
+  const res = await fetch(`${process.env.MAIN_API}/stocks/${symbol}/`);
+  const stockSingle = await res.json();
+  return stockSingle;
 };
 
 const getStockList = async (page) => {
@@ -60,17 +56,9 @@ const getSectorList = async () => {
 };
 
 const getSingleSector = async (slug) => {
-  try {
-    const res = await fetch(`${process.env.MAIN_API}/sectors/${slug}/`);
-    if (res.status == 200) {
-      const sectorSingle = await res.json();
-      return sectorSingle;
-    } else {
-      throw `Tekil sektör verisi alınırken hata: ${res.status}`;
-    }
-  } catch (error) {
-    console.log(error);
-  }
+  const res = await fetch(`${process.env.MAIN_API}/sectors/${slug}/`);
+  const sectorSingle = await res.json();
+  return sectorSingle;
 };
 
 const setFavoriteList = async (list) => {

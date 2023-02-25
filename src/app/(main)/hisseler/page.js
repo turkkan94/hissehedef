@@ -1,48 +1,62 @@
-"use client";
-import React from "react";
-import { useSearchParams } from "next/navigation";
-
 import StockList from "@/components/common/StockList";
-import { getStockList, getSectorList } from "@/components/data/MainStockApi";
-import Pagination from "react-js-pagination";
+
+export const metadata = {
+  title: "Tüm Hisseler | Türkiye Borsası | Bist 100 | Bist 30",
+  description:
+    "Türkiye borsasında yer alan tüm hisseleri bulabilir ve hisseler hakkında temel analiz verilerine ulaşabilirsiniz.",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  },
+  alternates: {
+    canonical: "https://www.hissehedef.com/hisseler",
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
+  twitter: {
+    card: "summary",
+    title: "Tüm Hisseler | Türkiye Borsası | Bist 100 | Bist 30",
+    description:
+      "Türkiye borsasında yer alan tüm hisseleri bulabilir ve hisseler hakkında temel analiz verilerine ulaşabilirsiniz.",
+    url: "https://www.hissehedef.com",
+    creator: "@hissehedefcom",
+    images: ["https://www.hissehedef.com/images/web/twitter-card.jpg"],
+  },
+  openGraph: {
+    title: "Tüm Hisseler | Türkiye Borsası | Bist 100 | Bist 30",
+    description:
+      "Türkiye borsasında yer alan tüm hisseleri bulabilir ve hisseler hakkında temel analiz verilerine ulaşabilirsiniz.",
+    url: "https://www.hissehedef.com/hisseler",
+    siteName: "Hisse Hedef",
+    images: [
+      {
+        url: "https://www.hissehedef.com/images/web/twitter-card.jpg",
+        width: 600,
+        height: 600,
+        alt: "Hisse Hedef",
+      },
+    ],
+    locale: "tr-TR",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+    },
+  },
+};
 
 export default function StocksPage() {
-  const searchParams = useSearchParams();
-  let page = searchParams.get("page");
-  page = Number(page);
-  const { stocks, count, resPerPage } = React.use(getStockList(page));
-
-  const sectors = React.use(getSectorList());
-
-  const handlePageClick = (pageNumber) => {
-    if (pageNumber == 1) {
-      window.location.replace(`/hisseler/`);
-    } else {
-      window.location.replace(`/hisseler?page=${pageNumber}`);
-    }
-  };
-
   return (
     <div className="col-span-12 px-[var(--margin-x)] pb-8">
-      <StockList stocks={stocks} sectors={sectors} />
-      {resPerPage < count && (
-        <div className="flex w-full mt-8">
-          <div className="mx-auto">
-            <Pagination
-              activePage={page}
-              itemsCountPerPage={resPerPage}
-              totalItemsCount={count}
-              onChange={handlePageClick}
-              nextPageText={<i className="fa-solid fa-angles-right"></i>}
-              prevPageText={<i className="fa-solid fa-angles-left"></i>}
-              innerClass="pagination space-x-1.5"
-              activeLinkClass="bg-[#4f46e5] text-white hover:text-inherit dark:bg-[#4f46e5]"
-              linkClass="flex h-8 min-w-[2rem] items-center justify-center rounded-lg bg-slate-150 px-3 leading-tight transition-colors hover:bg-slate-300 focus:bg-slate-300 active:bg-slate-300/80 dark:bg-navy-500 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
-              hideFirstLastPages={true}
-            />
-          </div>
-        </div>
-      )}
+      <StockList />
     </div>
   );
 }

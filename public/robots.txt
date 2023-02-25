@@ -1,6 +1,7 @@
 # *
 User-agent: *
 Disallow: https://api.hissehedef.com/*
+Disallow: https://www.hissehedef.com/profil/*
 
 # *
 User-agent: *
