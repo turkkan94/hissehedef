@@ -22,7 +22,9 @@ export async function generateMetadata({ params: { symbol } }) {
     stock?.symbol?.toUpperCase() +
     " Hisse Analiz ve Yorumlar - " +
     stock?.title;
-  const seo_description = `${stock?.symbol} hisse yorum ve analizlerinin yanı sıra ${stock?.title} hedef fiyat hesaplamalarına ve temel analiz verilerine ulaşabilirisniz.`;
+  const seo_description = `${stock?.symbol.toUpperCase()} hisse yorum ve analizlerinin yanı sıra ${
+    stock?.title
+  } hedef fiyat hesaplamalarına ve temel analiz verilerine ulaşabilirisniz.`;
   const seo_image = `https://www.hissehedef.com/images/stocks/img/${stock?.symbol}.png`;
   const seo_url = `https://www.hissehedef.com/hisseler/${stock?.symbol}`;
   return {
