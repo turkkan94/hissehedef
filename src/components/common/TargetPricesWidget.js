@@ -66,7 +66,9 @@ export default function TargetPricesWidget({
       >
         <div className="flex items-center justify-between py-3 px-4">
           <h2 className="font-medium tracking-wide text-slate-700 dark:text-navy-100">
-            Hedef Fiyat Hesaplama
+            {`${stockPrice.symbol
+              .split(".")[0]
+              .toUpperCase()} Hedef Fiyat Hesaplama`}
           </h2>
           <div
             id="sales-tab"
