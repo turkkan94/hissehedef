@@ -55,6 +55,7 @@ export async function generateMetadata({ params: { symbol } }) {
       title: seo_title,
       description: seo_description,
       url: seo_url,
+      image: seo_image,
       siteName: seo_siteName,
       images: [
         {

@@ -29,6 +29,7 @@ export const metadata = {
     description:
       "Türkiye borsasında yer alan tüm hisseleri bulabilir ve hisseler hakkında temel analiz verilerine ulaşabilirsiniz.",
     url: "https://www.hissehedef.com/hisseler",
+    image: "https://www.hissehedef.com/images/web/twitter-card.jpg",
     siteName: "Hisse Hedef",
     images: [
       {
