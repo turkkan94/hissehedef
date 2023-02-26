@@ -54,8 +54,8 @@ export default function Sidebar() {
                 href="/"
                 className={
                   pathname == "/"
-                    ? "tooltip-main-sidebar flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
-                    : "tooltip-main-sidebar flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 dark:text-accent-light dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
+                    ? "tooltip-main-sidebar flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
+                    : "tooltip-main-sidebar flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25  dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
                 }
               >
                 <svg
@@ -89,8 +89,6 @@ export default function Sidebar() {
             <Tippy content="Hisseler" placement="right">
               <a
                 href="/hisseler"
-                data-tooltip="Applications"
-                data-placement="right"
                 className={
                   pathname == "/hisseler"
                     ? "tooltip-main-sidebar flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
@@ -105,8 +103,6 @@ export default function Sidebar() {
             <Tippy content="Sektörler" placement="right">
               <a
                 href="/sektorler"
-                data-tooltip="Applications"
-                data-placement="right"
                 className={
                   pathname == "/sektorler"
                     ? "tooltip-main-sidebar flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
@@ -121,8 +117,6 @@ export default function Sidebar() {
             <Tippy content="Blog" placement="right">
               <a
                 href="#"
-                data-tooltip="Pages & Layouts"
-                data-placement="right"
                 className={
                   pathname == "/blog"
                     ? "tooltip-main-sidebar flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
@@ -161,8 +155,6 @@ export default function Sidebar() {
             <Tippy content="İletişim" placement="right">
               <a
                 href="/iletisim"
-                data-tooltip="Forms"
-                data-placement="right"
                 className={
                   pathname == "/iletisim"
                     ? "tooltip-main-sidebar flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
