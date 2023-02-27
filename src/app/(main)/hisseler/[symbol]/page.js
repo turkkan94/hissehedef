@@ -1,7 +1,10 @@
 import React, { use } from "react";
 
 import { getSingleStock } from "@/components/data/MainStockApi";
-import { getStockQuoteSummary } from "@/components/data/GetStockData";
+import {
+  getStockQuoteSummary,
+  getStockData,
+} from "@/components/data/GetStockData";
 import getStockPrices from "@/components/data/GetStockPrices";
 import estimatedFinancials from "@/components/data/EstimatedFinancials";
 
@@ -86,37 +89,34 @@ export default function StockPage({ params: { symbol } }) {
   if (stockSingle.detail) {
     redirect("/404");
   }
-  const {
-    stockPrice,
-    stockSummary,
-    stockBalanceQuarterly,
-    stockIncomeQuarterly,
-    period,
-    totalStockHolderPercent,
-  } = use(getStockQuoteSummary(symbol));
-  const stockPriceSeries = use(getStockPrices(symbol, "30d"));
+  // const {
+  //   stockPrice,
+  //   stockSummary,
+  //   stockBalanceQuarterly,
+  //   stockIncomeQuarterly,
+  //   period,
+  //   totalStockHolderPercent,
+  // } = use(getStockQuoteSummary(symbol));
 
-  const EPS = estimatedFinancials(
-    period,
-    stockIncomeQuarterly,
-    stockBalanceQuarterly
-  );
+  const { stock } = use(getStockData(symbol));
+
+  const stockPriceSeries = use(getStockPrices(symbol, "30d"));
 
   const stockIncomeQuarterlyChart = {
     title: "Net Kâr",
-    data: stockIncomeQuarterly,
+    data: stock.income.sheets,
     key: "netIncome",
   };
 
   const stockRevenueChartQuarterly = {
     title: "Satışlar",
-    data: stockIncomeQuarterly,
+    data: stock.income.sheets,
     key: "totalRevenue",
   };
 
   const stockEquityChartQuarterly = {
     title: "Özkaynaklar",
-    data: stockBalanceQuarterly,
+    data: stock.balance.sheets,
     key: "totalStockholderEquity",
   };
 
@@ -126,7 +126,7 @@ export default function StockPage({ params: { symbol } }) {
       <div className="grid grid-cols-12 px-[var(--margin-x)] gap-4 transition-all duration-[.25s] sm:gap-5 lg:gap-6">
         <div className="col-span-12 lg:col-span-8">
           <div className="flex flex-col sm:flex-row sm:space-x-7">
-            <StockDetail stockSingle={stockSingle} stockPrice={stockPrice} />
+            <StockDetail stockSingle={stockSingle} stock={stock} />
             <div className="ax-transparent-gridline grid w-full grid-cols-1">
               <StockPricesChart stockPriceSeries={stockPriceSeries} />
             </div>
@@ -137,7 +137,8 @@ export default function StockPage({ params: { symbol } }) {
             <div className="rounded-lg bg-slate-150 p-4 dark:bg-navy-700">
               <div className="flex justify-between space-x-1">
                 <p className="text-xl font-semibold text-slate-700 dark:text-navy-100">
-                  {Number((stockPrice.marketCap / 1000000000).toFixed(3)) + "B"}
+                  {Number((stock.details.marketCap / 1000000000).toFixed(3)) +
+                    "B"}
                 </p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -159,7 +160,7 @@ export default function StockPage({ params: { symbol } }) {
             <div className="rounded-lg bg-slate-150 p-4 dark:bg-navy-700">
               <div className="flex justify-between">
                 <p className="text-xl font-semibold text-slate-700 dark:text-navy-100">
-                  {stockBalanceQuarterly[0].totalStockholderEquity.fmt}
+                  {stock.details.bookValueFmt}
                 </p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -181,7 +182,7 @@ export default function StockPage({ params: { symbol } }) {
             <div className="rounded-lg bg-slate-150 p-4 dark:bg-navy-700">
               <div className="flex justify-between">
                 <p className="text-xl font-semibold text-slate-700 dark:text-navy-100">
-                  {stockBalanceQuarterly[0].commonStock.fmt}
+                  {stock.details.commonStockFmt}
                 </p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -203,8 +204,7 @@ export default function StockPage({ params: { symbol } }) {
             <div className="rounded-lg bg-slate-150 p-4 dark:bg-navy-700">
               <div className="flex justify-between">
                 <p className="text-xl font-semibold text-slate-700 dark:text-navy-100">
-                  {stockSummary.trailingPE &&
-                    stockSummary.trailingPE.toFixed(2)}
+                  {stock.details.trailingPE.toFixed(2)}
                 </p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -227,14 +227,7 @@ export default function StockPage({ params: { symbol } }) {
             <div className="rounded-lg bg-slate-150 p-4 dark:bg-navy-700">
               <div className="flex justify-between space-x-1">
                 <p className="text-xl font-semibold text-slate-700 dark:text-navy-100">
-                  {(
-                    (stockIncomeQuarterly[0].netIncome.raw +
-                      stockIncomeQuarterly[1].netIncome.raw +
-                      stockIncomeQuarterly[2].netIncome.raw +
-                      stockIncomeQuarterly[3].netIncome.raw) /
-                    stockBalanceQuarterly[0].commonStock.raw
-                  ).toFixed(2)}
-                  ₺
+                  {stock.details.earningsPerShare}₺
                 </p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -256,10 +249,7 @@ export default function StockPage({ params: { symbol } }) {
             <div className="rounded-lg bg-slate-150 p-4 dark:bg-navy-700">
               <div className="flex justify-between">
                 <p className="text-xl font-semibold text-slate-700 dark:text-navy-100">
-                  {(
-                    stockPrice.marketCap /
-                    stockBalanceQuarterly[0].totalStockholderEquity.raw
-                  ).toFixed(2)}
+                  {stock.details.priceToBook}
                 </p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -281,9 +271,9 @@ export default function StockPage({ params: { symbol } }) {
           </div>
         </div>
         <TargetPricesWidget
-          stockPrice={stockPrice}
-          EPS={EPS}
-          totalStockHolderPercent={totalStockHolderPercent}
+          stock={stock}
+          EPS={stock.details.trailingEPS}
+          bookValueRatio={stock.details.bookValueRatio}
         />
       </div>
       <div className="mt-4 py-5 bg-slate-150 dark:bg-navy-800 sm:mt-5 sm:gap-5 lg:mt-6 lg:gap-6">

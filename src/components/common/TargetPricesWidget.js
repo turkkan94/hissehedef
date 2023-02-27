@@ -3,11 +3,7 @@ import React, { useState } from "react";
 import CountUp from "react-countup";
 import { toast } from "react-toastify";
 
-export default function TargetPricesWidget({
-  stockPrice,
-  EPS,
-  totalStockHolderPercent,
-}) {
+export default function TargetPricesWidget({ stock, EPS, bookValueRatio }) {
   const [lastBalancePrice, setLastBalancePrice] = useState(null);
   const [bist100PE, setBist100PE] = useState(null);
   const [sectorPE, setSectorPE] = useState(null);
@@ -15,7 +11,7 @@ export default function TargetPricesWidget({
   const [targetPriceBist, setTargetPriceBist] = useState(null);
   const [targetPriceHolder, setTargetPriceHolder] = useState(null);
 
-  const PE = stockPrice.regularMarketPrice / EPS;
+  const PE = stock.details.currentPrice / EPS;
 
   const calculateTargetPrices = (e) => {
     e.preventDefault();
@@ -37,14 +33,12 @@ export default function TargetPricesWidget({
     }
     if (lastBalancePrice == null) {
       setTargetPriceBist(
-        (bist100PE.replace(",", ".") / PE) * stockPrice.regularMarketPrice
+        (bist100PE.replace(",", ".") / PE) * stock.details.currentPrice
       );
       setTargetPriceSector(
-        (sectorPE.replace(",", ".") / PE) * stockPrice.regularMarketPrice
+        (sectorPE.replace(",", ".") / PE) * stock.details.currentPrice
       );
-      setTargetPriceHolder(
-        totalStockHolderPercent * stockPrice.regularMarketPrice
-      );
+      setTargetPriceHolder(bookValueRatio * stock.details.currentPrice);
     } else {
       setTargetPriceBist(
         (bist100PE.replace(",", ".") / PE) * lastBalancePrice.replace(",", ".")
@@ -52,9 +46,7 @@ export default function TargetPricesWidget({
       setTargetPriceSector(
         (sectorPE.replace(",", ".") / PE) * lastBalancePrice.replace(",", ".")
       );
-      setTargetPriceHolder(
-        totalStockHolderPercent * lastBalancePrice.replace(",", ".")
-      );
+      setTargetPriceHolder(bookValueRatio * lastBalancePrice.replace(",", "."));
     }
   };
 
@@ -66,9 +58,7 @@ export default function TargetPricesWidget({
       >
         <div className="flex items-center justify-between py-3 px-4">
           <h2 className="font-medium tracking-wide text-slate-700 dark:text-navy-100">
-            {`${stockPrice.symbol
-              .split(".")[0]
-              .toUpperCase()} Hedef Fiyat Hesaplama`}
+            {`${stock.details.symbol.toUpperCase()} Hedef Fiyat Hesaplama`}
           </h2>
           <div
             id="sales-tab"
@@ -118,15 +108,14 @@ export default function TargetPricesWidget({
                   </span>
                   <span
                     className={
-                      targetPriceBist < stockPrice.regularMarketPrice
+                      targetPriceBist < stock.details.currentPrice
                         ? "text-xs text-red-500"
                         : "text-xs text-success"
                     }
                   >
                     {targetPriceBist
                       ? (
-                          (targetPriceBist / stockPrice.regularMarketPrice -
-                            1) *
+                          (targetPriceBist / stock.details.currentPrice - 1) *
                           100
                         ).toFixed(2)
                       : "0"}
@@ -168,15 +157,14 @@ export default function TargetPricesWidget({
                   </span>
                   <span
                     className={
-                      targetPriceSector < stockPrice.regularMarketPrice
+                      targetPriceSector < stock.details.currentPrice
                         ? "text-xs text-red-500"
                         : "text-xs text-success"
                     }
                   >
                     {targetPriceSector
                       ? (
-                          (targetPriceSector / stockPrice.regularMarketPrice -
-                            1) *
+                          (targetPriceSector / stock.details.currentPrice - 1) *
                           100
                         ).toFixed(2)
                       : "0"}
@@ -221,15 +209,14 @@ export default function TargetPricesWidget({
                   </span>
                   <span
                     className={
-                      targetPriceHolder < stockPrice.regularMarketPrice
+                      targetPriceHolder < stock.details.currentPrice
                         ? "text-xs text-red-500"
                         : "text-xs text-success"
                     }
                   >
                     {targetPriceHolder
                       ? (
-                          (targetPriceHolder / stockPrice.regularMarketPrice -
-                            1) *
+                          (targetPriceHolder / stock.details.currentPrice - 1) *
                           100
                         ).toFixed(2)
                       : "0"}
@@ -282,7 +269,7 @@ export default function TargetPricesWidget({
                 ? (
                     ((targetPriceBist + targetPriceSector + targetPriceHolder) /
                       3 /
-                      stockPrice.regularMarketPrice -
+                      stock.details.currentPrice -
                       1) *
                     100
                   ).toFixed(2)
@@ -335,7 +322,7 @@ export default function TargetPricesWidget({
                 </td>
                 <td className="whitespace-nowrap py-2 text-right">
                   <p className="font-medium text-slate-700 dark:text-navy-100">
-                    {(stockPrice.regularMarketPrice / EPS).toFixed(2)}
+                    {(stock.details.currentPrice / EPS).toFixed(2)}
                   </p>
                 </td>
                 <td className="whitespace-nowrap py-2 text-right">42%</td>

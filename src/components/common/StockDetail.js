@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-export default function StockDetail({ stockSingle, stockPrice }) {
+export default function StockDetail({ stockSingle, stock }) {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [user, setUser] = React.useState();
@@ -91,7 +91,7 @@ export default function StockDetail({ stockSingle, stockPrice }) {
         <div>
           <div className="flex items-center space-x-1">
             <p className="text-2xl font-semibold text-slate-700 dark:text-navy-100">
-              {stockPrice.regularMarketPrice.toLocaleString("tr-TR")}₺
+              {stock.details.currentPrice.toLocaleString("tr-TR")}₺
             </p>
             <button className="btn h-6 w-6 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
               <svg
@@ -130,16 +130,16 @@ export default function StockDetail({ stockSingle, stockPrice }) {
           <div>
             <div className="flex items-center space-x-1">
               <p className="text-2xl font-semibold text-slate-700 dark:text-navy-100">
-                {stockPrice.regularMarketPrice.toLocaleString("tr-TR")}₺
+                {stock.details.currentPrice.toLocaleString("tr-TR")}₺
               </p>
               <div className="flex items-center space-x-0.5">
-                {stockPrice.regularMarketChangePercent > 0 ? (
+                {stock.details.priceChangePercent > 0 ? (
                   <i className="fa-solid fa-arrow-up h-2 w-2 text-success"></i>
                 ) : (
                   <i className="fa-solid fa-arrow-down h-2 w-2 text-red-500"></i>
                 )}
                 <p className="text-xs text-slate-800 dark:text-navy-100">
-                  {(stockPrice.regularMarketChangePercent * 100).toFixed(2)}
+                  {stock.details.priceChangePercent}
                 </p>
                 <span className="text-xs">%</span>
               </div>

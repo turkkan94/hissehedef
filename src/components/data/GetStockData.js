@@ -11,9 +11,7 @@ const getStockQuoteSummary = async (symbol) => {
     const stockBalanceData =
       stockData.quoteSummary.result[0].balanceSheetHistoryQuarterly
         .balanceSheetStatements;
-
     let stockBalanceQuarterly = [];
-
     for (let i = 0; i < stockBalanceData.length; i++) {
       if (stockBalanceData[i].cash) {
         stockBalanceQuarterly.push(stockBalanceData[i]);
@@ -27,6 +25,7 @@ const getStockQuoteSummary = async (symbol) => {
     const totalStockHolderPercent =
       stockBalanceQuarterly[0].totalStockholderEquity.raw /
       stockBalanceQuarterly[1].totalStockholderEquity.raw;
+
     let list = [];
     let currentYear;
     let period = 0;
@@ -84,4 +83,10 @@ const getFavoritesData = async (favoriteList) => {
   return stockData;
 };
 
-export { getStockQuoteSummary, getStockQuote, getFavoritesData };
+const getStockData = async (symbol) => {
+  const res = await fetch(`http://127.0.0.1:3000/api/stocks/${symbol}/`);
+  const stockSingle = await res.json();
+  return stockSingle;
+};
+
+export { getStockQuoteSummary, getStockQuote, getFavoritesData, getStockData };
