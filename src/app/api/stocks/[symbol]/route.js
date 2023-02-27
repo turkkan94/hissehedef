@@ -3,7 +3,9 @@ export async function GET(request, { params: { symbol } }) {
     `https://query2.finance.yahoo.com/v10/finance/quoteSummary/${symbol.toUpperCase()}.IS?formatted=false&modules=price%2CbalanceSheetHistoryQuarterly%2CincomeStatementHistoryQuarterly%2CsummaryDetail`,
     { next: { revalidate: 60 } }
   );
-  const resAPI = await fetch(`https://api.hissehedef.com/stocks/${symbol}`);
+  const resAPI = await fetch(`https://api.hissehedef.com/stocks/${symbol}`, {
+    cache: "force-cache",
+  });
 
   const dataYahoo = await resYahoo.json();
   const dataAPI = await resAPI.json();
