@@ -3,7 +3,8 @@ import Bist100 from "@/components/dashboard/bist100/Bist100";
 
 const getIndicesData = async () => {
   const res = await fetch(
-    `https://query2.finance.yahoo.com/v7/finance/quote?symbols=XU100.IS%2CXU030.IS%2CXBANK.IS%2CUSDTRY=X`
+    `https://query2.finance.yahoo.com/v7/finance/quote?symbols=XU100.IS%2CXU030.IS%2CXBANK.IS%2CUSDTRY=X`,
+    { next: { revalidate: 60 } }
   );
   const indicesData = await res.json();
   return indicesData;
