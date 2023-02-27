@@ -84,7 +84,7 @@ const getFavoritesData = async (favoriteList) => {
 };
 
 const getStockData = async (symbol) => {
-  const res = await fetch(`http://127.0.0.1:3000/api/stocks/${symbol}/`);
+  const res = await fetch(`https://www.hissehedef.com/api/stocks/${symbol}/`);
   const stockSingle = await res.json();
   return stockSingle;
 };
