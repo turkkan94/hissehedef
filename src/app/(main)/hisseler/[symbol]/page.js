@@ -1,7 +1,8 @@
-import React from "react";
+import React, { use } from "react";
 
 import { getSingleStock } from "@/components/data/MainStockApi";
-import { getStockData, getStockPrices } from "@/components/data/GetStockData";
+import { getStockData } from "@/components/data/GetStockData";
+import getStockPrices from "@/components/data/GetStockPrices";
 
 import StockPricesChart from "@/components/charts/StockPricesChart";
 import TargetPricesWidget from "@/components/common/TargetPricesWidget";
@@ -79,36 +80,38 @@ export async function generateMetadata({ params: { symbol } }) {
   };
 }
 
-export default async function StockPage({ params: { symbol } }) {
-  const stockSingle = await getSingleStock(symbol);
+export default function StockPage({ params: { symbol } }) {
+  const stockSingle = use(getSingleStock(symbol));
   if (stockSingle.detail) {
     redirect("/404");
   }
-  // const { stock } = await getStockData(symbol);
-  // const { stockPriceSeries } = await getStockPrices(symbol);
 
-  // const stockIncomeQuarterlyChart = {
-  //   title: "Net Kâr",
-  //   data: stock.income.sheets,
-  //   key: "netIncome",
-  // };
+  const { stock } = use(getStockData(symbol));
 
-  // const stockRevenueChartQuarterly = {
-  //   title: "Satışlar",
-  //   data: stock.income.sheets,
-  //   key: "totalRevenue",
-  // };
+  const stockPriceSeries = use(getStockPrices(symbol, "30d"));
 
-  // const stockEquityChartQuarterly = {
-  //   title: "Özkaynaklar",
-  //   data: stock.balance.sheets,
-  //   key: "totalStockholderEquity",
-  // };
+  const stockIncomeQuarterlyChart = {
+    title: "Net Kâr",
+    data: stock.income.sheets,
+    key: "netIncome",
+  };
+
+  const stockRevenueChartQuarterly = {
+    title: "Satışlar",
+    data: stock.income.sheets,
+    key: "totalRevenue",
+  };
+
+  const stockEquityChartQuarterly = {
+    title: "Özkaynaklar",
+    data: stock.balance.sheets,
+    key: "totalStockholderEquity",
+  };
 
   return (
     <div className="col-span-12">
       <BreadCrumb stock={stockSingle} />
-      {/* <div className="grid grid-cols-12 px-[var(--margin-x)] gap-4 transition-all duration-[.25s] sm:gap-5 lg:gap-6">
+      <div className="grid grid-cols-12 px-[var(--margin-x)] gap-4 transition-all duration-[.25s] sm:gap-5 lg:gap-6">
         <div className="col-span-12 lg:col-span-8">
           <div className="flex flex-col sm:flex-row sm:space-x-7">
             <StockDetail
@@ -267,14 +270,14 @@ export default async function StockPage({ params: { symbol } }) {
           EPS={stock.details.trailingEPS}
           bookValueRatio={stock.details.bookValueRatio}
         />
-      </div> */}
-      {/* <div className="mt-4 py-5 bg-slate-150 dark:bg-navy-800 sm:mt-5 sm:gap-5 lg:mt-6 lg:gap-6">
+      </div>
+      <div className="mt-4 py-5 bg-slate-150 dark:bg-navy-800 sm:mt-5 sm:gap-5 lg:mt-6 lg:gap-6">
         <div className="grid grid-cols-1 gap-4 pb-3 sm:grid-cols-3 px-[var(--margin-x)]">
           <BarCharts dataSet={stockIncomeQuarterlyChart} />
           <BarCharts dataSet={stockRevenueChartQuarterly} />
           <BarCharts dataSet={stockEquityChartQuarterly} />
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }

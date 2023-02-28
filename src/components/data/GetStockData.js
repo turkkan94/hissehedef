@@ -91,21 +91,4 @@ const getStockData = async (symbol) => {
   return stockSingle;
 };
 
-const getStockPrices = async (symbol) => {
-  const res = await fetch(
-    `https://www.hissehedef.com/api/stocks/${symbol}/prices`,
-    {
-      cache: "no-cache",
-    }
-  );
-  const prices = await res.json();
-  return prices;
-};
-
-export {
-  getStockQuoteSummary,
-  getStockQuote,
-  getFavoritesData,
-  getStockData,
-  getStockPrices,
-};
+export { getStockQuoteSummary, getStockQuote, getFavoritesData, getStockData };
