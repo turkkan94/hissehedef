@@ -7,6 +7,7 @@ import axios from "axios";
 import Link from "next/link";
 
 import StockPricesChart from "@/components/charts/StockPricesChart";
+import SheetCard from "@/components/common/SheetCard";
 
 export default function StockDetail({ stockSingle, stock, stockPriceSeries }) {
   const { data: session, status } = useSession();
@@ -133,45 +134,24 @@ export default function StockDetail({ stockSingle, stock, stockPriceSeries }) {
         >
           <StockPricesChart stockPriceSeries={stockPriceSeries} />
         </div>
-        <a
-          href={`/hisseler/${stockSingle.symbol}/bilanco`}
-          className="rounded-lg flex relative bg-slate-150 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:bg-navy-700 w-full flex-row justify-between p-2 sm:p-3"
-        >
-          <div>
-            <p className="text-base font-medium text-slate-700 dark:text-navy-100">
-              Bilanço
-            </p>
-          </div>
-          <div className="absolute bottom-0 right-0 overflow-hidden rounded-lg">
-            <i className="fa-solid fa-scale-balanced text-primary translate-x-1/4 translate-y-1/4 text-5xl opacity-15"></i>
-          </div>
-        </a>
-        <a
-          href={`/hisseler/${stockSingle.symbol}/nakit`}
-          className="rounded-lg flex relative bg-slate-150 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:bg-navy-700 w-full flex-row justify-between p-2 sm:p-3"
-        >
-          <div>
-            <p className="text-base font-medium text-slate-700 dark:text-navy-100">
-              Nakit Akışı
-            </p>
-          </div>
-          <div className="absolute bottom-0 right-0 overflow-hidden rounded-lg">
-            <i className="fa-solid fa-money-check-dollar text-warning translate-x-1/4 translate-y-1/4 text-5xl opacity-15"></i>
-          </div>
-        </a>
-        <Link
-          href="#"
-          className="rounded-lg flex relative bg-slate-150 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:bg-navy-700 w-full flex-row justify-between p-2 sm:p-3"
-        >
-          <div>
-            <p className="text-base font-medium text-slate-700 dark:text-navy-100">
-              Gelir Tablosu
-            </p>
-          </div>
-          <div className="absolute bottom-0 right-0 overflow-hidden rounded-lg">
-            <i className="fa-solid fa-sack-dollar text-info translate-x-1/4 translate-y-1/4 text-5xl opacity-15"></i>
-          </div>
-        </Link>
+        <SheetCard
+          url={`/hisseler/${stockSingle.symbol}/bilanco`}
+          title="Bilanço"
+          icon="fa-solid fa-scale-balanced"
+          iconColor={"text-primary"}
+        />
+        <SheetCard
+          url={`/hisseler/${stockSingle.symbol}/nakit`}
+          title="Nakit akışı"
+          icon="fa-solid fa-money-check-dollar"
+          iconColor={"text-warning"}
+        />
+        <SheetCard
+          url={`#`}
+          title="Gelir Tablosu"
+          icon="fa-solid fa-sack-dollar"
+          iconColor={"text-info"}
+        />
       </div>
       <div className="hidden sm:flex shrink-0 flex-col items-center sm:items-start">
         <div className="flex flex-row justify-start items-center">
@@ -221,45 +201,24 @@ export default function StockDetail({ stockSingle, stock, stockPriceSeries }) {
           </button>
         )}
         <div className="mt-2 flex flex-col w-full items-center gap-3">
-          <a
-            href={`/hisseler/${stockSingle.symbol}/bilanco`}
-            className="rounded-lg flex relative bg-slate-150 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:bg-navy-700 w-full flex-row justify-between p-2 sm:p-3"
-          >
-            <div>
-              <p className="text-base font-medium text-slate-700 dark:text-navy-100">
-                Bilanço
-              </p>
-            </div>
-            <div className="absolute bottom-0 right-0 overflow-hidden rounded-lg">
-              <i className="fa-solid fa-scale-balanced text-primary translate-x-1/4 translate-y-1/4 text-5xl opacity-15"></i>
-            </div>
-          </a>
-          <a
-            href={`/hisseler/${stockSingle.symbol}/nakit`}
-            className="rounded-lg flex relative bg-slate-150 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:bg-navy-700 w-full flex-row justify-between p-2 sm:p-3"
-          >
-            <div>
-              <p className="text-base font-medium text-slate-700 dark:text-navy-100">
-                Nakit Akışı
-              </p>
-            </div>
-            <div className="absolute bottom-0 right-0 overflow-hidden rounded-lg">
-              <i className="fa-solid fa-money-check-dollar text-warning translate-x-1/4 translate-y-1/4 text-5xl opacity-15"></i>
-            </div>
-          </a>
-          <Link
-            href={`#`}
-            className="rounded-lg flex relative bg-slate-150 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:bg-navy-700 w-full flex-row justify-between p-2 sm:p-3"
-          >
-            <div>
-              <p className="text-base font-medium text-slate-700 dark:text-navy-100">
-                Gelir Tablosu
-              </p>
-            </div>
-            <div className="absolute bottom-0 right-0 overflow-hidden rounded-lg">
-              <i className="fa-solid fa-sack-dollar text-info translate-x-1/4 translate-y-1/4 text-5xl opacity-15"></i>
-            </div>
-          </Link>
+          <SheetCard
+            url={`/hisseler/${stockSingle.symbol}/bilanco`}
+            title="Bilanço"
+            icon="fa-solid fa-scale-balanced"
+            iconColor={"text-primary"}
+          />
+          <SheetCard
+            url={`/hisseler/${stockSingle.symbol}/nakit`}
+            title="Nakit akışı"
+            icon="fa-solid fa-money-check-dollar"
+            iconColor={"text-warning"}
+          />
+          <SheetCard
+            url={`#`}
+            title="Gelir Tablosu"
+            icon="fa-solid fa-sack-dollar"
+            iconColor={"text-info"}
+          />
         </div>
       </div>
     </div>
