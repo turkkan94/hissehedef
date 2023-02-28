@@ -84,11 +84,22 @@ const getFavoritesData = async (favoriteList) => {
 };
 
 const getStockData = async (symbol) => {
-  const res = await fetch(`https://www.hissehedef.com/api/stocks/${symbol}/`, {
-    cache: "no-cache",
-  });
-  const stockSingle = await res.json();
-  return stockSingle;
+  try {
+    const res = await fetch(
+      `https://www.hissehedef.com/api/stocks/${symbol}/`,
+      {
+        cache: "no-cache",
+      }
+    );
+    if (res.status == 200) {
+      const stockSingle = await res.json();
+      return stockSingle;
+    } else {
+      console.log("Yahoo hisse verisi hata");
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export { getStockQuoteSummary, getStockQuote, getFavoritesData, getStockData };

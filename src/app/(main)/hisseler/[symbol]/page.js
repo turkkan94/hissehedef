@@ -9,7 +9,7 @@ import TargetPricesWidget from "@/components/common/TargetPricesWidget";
 import BarCharts from "@/components/charts/BarCharts";
 import BreadCrumb from "@/components/common/BreadCrumb";
 import StockDetail from "@/components/common/StockDetail";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 export async function generateMetadata({ params: { symbol } }) {
   const stock = await getSingleStock(symbol);
@@ -85,11 +85,8 @@ export default function StockPage({ params: { symbol } }) {
   if (stockSingle.detail) {
     redirect("/404");
   }
-
   const { stock } = use(getStockData(symbol));
-
   const stockPriceSeries = use(getStockPrices(symbol, "30d"));
-
   const stockIncomeQuarterlyChart = {
     title: "Net Kâr",
     data: stock.income.sheets,

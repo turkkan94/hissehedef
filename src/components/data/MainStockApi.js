@@ -1,7 +1,15 @@
 const getSingleStock = async (symbol) => {
-  const res = await fetch(`${process.env.MAIN_API}/stocks/${symbol}/`);
-  const stockSingle = await res.json();
-  return stockSingle;
+  try {
+    const res = await fetch(`${process.env.MAIN_API}/stocks/${symbol}/`);
+    if (res.status == 200) {
+      const stockSingle = await res.json();
+      return stockSingle;
+    } else {
+      console.log("Ana api hatası");
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const getStockList = async (page) => {
