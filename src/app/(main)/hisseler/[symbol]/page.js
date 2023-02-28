@@ -84,26 +84,26 @@ export default async function StockPage({ params: { symbol } }) {
   if (stockSingle.detail) {
     redirect("/404");
   }
-  const { stock } = await getStockData(symbol);
-  const { stockPriceSeries } = await getStockPrices(symbol);
+  // const { stock } = await getStockData(symbol);
+  // const { stockPriceSeries } = await getStockPrices(symbol);
 
-  const stockIncomeQuarterlyChart = {
-    title: "Net Kâr",
-    data: stock.income.sheets,
-    key: "netIncome",
-  };
+  // const stockIncomeQuarterlyChart = {
+  //   title: "Net Kâr",
+  //   data: stock.income.sheets,
+  //   key: "netIncome",
+  // };
 
-  const stockRevenueChartQuarterly = {
-    title: "Satışlar",
-    data: stock.income.sheets,
-    key: "totalRevenue",
-  };
+  // const stockRevenueChartQuarterly = {
+  //   title: "Satışlar",
+  //   data: stock.income.sheets,
+  //   key: "totalRevenue",
+  // };
 
-  const stockEquityChartQuarterly = {
-    title: "Özkaynaklar",
-    data: stock.balance.sheets,
-    key: "totalStockholderEquity",
-  };
+  // const stockEquityChartQuarterly = {
+  //   title: "Özkaynaklar",
+  //   data: stock.balance.sheets,
+  //   key: "totalStockholderEquity",
+  // };
 
   return (
     <div className="col-span-12">
