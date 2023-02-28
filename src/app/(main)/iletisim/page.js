@@ -55,14 +55,16 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="flex flex-col items-center px-[var(--margin-x)]">
-      <div className="flex items-center space-x-4 py-5 lg:py-6">
-        <h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
-          İletişim
-        </h2>
-      </div>
-      <div className="col-span-12 sm:col-span-8 max-w-xl">
-        <ContactForm />
+    <div className="col-span-12">
+      <div className="flex flex-col items-center px-[var(--margin-x)]">
+        <div className="flex items-center space-x-4 py-5 lg:py-6">
+          <h2 className="text-xl font-medium text-slate-800 dark:text-navy-50 lg:text-2xl">
+            İletişim
+          </h2>
+        </div>
+        <div className="col-span-12 sm:col-span-8 max-w-xl">
+          <ContactForm />
+        </div>
       </div>
     </div>
   );

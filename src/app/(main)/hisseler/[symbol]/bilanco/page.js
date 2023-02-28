@@ -81,9 +81,11 @@ export default async function BalancePage({ params: { symbol } }) {
   const { balance } = await getBalance(symbol);
 
   return (
-    <div className="grid grid-cols-12 px-[var(--margin-x)] gap-4 transition-all duration-[.25s] sm:gap-5 lg:gap-6">
-      <div className="col-span-12 pb-8">
-        <BalanceTable balance={balance} symbol={symbol} />
+    <div className="col-span-12">
+      <div className="grid grid-cols-12 px-[var(--margin-x)] gap-4 transition-all duration-[.25s] sm:gap-5 lg:gap-6">
+        <div className="col-span-12">
+          <BalanceTable balance={balance} symbol={symbol} />
+        </div>
       </div>
     </div>
   );
