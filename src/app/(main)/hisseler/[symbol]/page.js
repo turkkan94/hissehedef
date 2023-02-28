@@ -84,9 +84,7 @@ export default async function StockPage({ params: { symbol } }) {
   if (stockSingle.detail) {
     redirect("/404");
   }
-
   const { stock } = await getStockData(symbol);
-
   const { stockPriceSeries } = await getStockPrices(symbol);
 
   const stockIncomeQuarterlyChart = {
@@ -110,7 +108,7 @@ export default async function StockPage({ params: { symbol } }) {
   return (
     <div className="col-span-12">
       <BreadCrumb stock={stockSingle} />
-      <div className="grid grid-cols-12 px-[var(--margin-x)] gap-4 transition-all duration-[.25s] sm:gap-5 lg:gap-6">
+      {/* <div className="grid grid-cols-12 px-[var(--margin-x)] gap-4 transition-all duration-[.25s] sm:gap-5 lg:gap-6">
         <div className="col-span-12 lg:col-span-8">
           <div className="flex flex-col sm:flex-row sm:space-x-7">
             <StockDetail
@@ -269,7 +267,7 @@ export default async function StockPage({ params: { symbol } }) {
           EPS={stock.details.trailingEPS}
           bookValueRatio={stock.details.bookValueRatio}
         />
-      </div>
+      </div> */}
       <div className="mt-4 py-5 bg-slate-150 dark:bg-navy-800 sm:mt-5 sm:gap-5 lg:mt-6 lg:gap-6">
         <div className="grid grid-cols-1 gap-4 pb-3 sm:grid-cols-3 px-[var(--margin-x)]">
           <BarCharts dataSet={stockIncomeQuarterlyChart} />
