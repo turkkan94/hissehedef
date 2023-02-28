@@ -7,7 +7,7 @@ export async function generateMetadata({ params: { symbol } }) {
     redirect("/404");
   }
   const seo_siteName = "Hisse Hedef";
-  const seo_title = `${stock?.symbol?.toUpperCase()} Nakit Akışı - ${
+  const seo_title = `${stock?.symbol?.toUpperCase()} Nakit Akışı Tablosu - ${
     stock?.title
   } Nakit Akışı Analizi`;
   const seo_description = `${stock?.symbol.toUpperCase()} hisse nakit akışı tablosunu bulabilirsiniz. ${
@@ -76,8 +76,8 @@ const getCashFlow = async (symbol) => {
       next: { revalidate: 60 },
     }
   );
-  const balance = await res.json();
-  return balance;
+  const cashFlow = await res.json();
+  return cashFlow;
 };
 
 export default async function CashPage({ params: { symbol } }) {
