@@ -268,13 +268,13 @@ export default async function StockPage({ params: { symbol } }) {
           bookValueRatio={stock.details.bookValueRatio}
         />
       </div> */}
-      <div className="mt-4 py-5 bg-slate-150 dark:bg-navy-800 sm:mt-5 sm:gap-5 lg:mt-6 lg:gap-6">
+      {/* <div className="mt-4 py-5 bg-slate-150 dark:bg-navy-800 sm:mt-5 sm:gap-5 lg:mt-6 lg:gap-6">
         <div className="grid grid-cols-1 gap-4 pb-3 sm:grid-cols-3 px-[var(--margin-x)]">
           <BarCharts dataSet={stockIncomeQuarterlyChart} />
           <BarCharts dataSet={stockRevenueChartQuarterly} />
           <BarCharts dataSet={stockEquityChartQuarterly} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
