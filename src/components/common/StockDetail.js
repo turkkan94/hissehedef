@@ -133,7 +133,7 @@ export default function StockDetail({ stockSingle, stock, stockPriceSeries }) {
         >
           <StockPricesChart stockPriceSeries={stockPriceSeries} />
         </div>
-        <Link
+        <a
           href={`/hisseler/${stockSingle.symbol}/bilanco`}
           className="rounded-lg flex relative bg-slate-150 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:bg-navy-700 w-full flex-row justify-between p-2 sm:p-3"
         >
@@ -145,7 +145,7 @@ export default function StockDetail({ stockSingle, stock, stockPriceSeries }) {
           <div className="absolute bottom-0 right-0 overflow-hidden rounded-lg">
             <i className="fa-solid fa-scale-balanced text-primary translate-x-1/4 translate-y-1/4 text-5xl opacity-15"></i>
           </div>
-        </Link>
+        </a>
         <Link
           href="#"
           className="rounded-lg flex relative bg-slate-150 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:bg-navy-700 w-full flex-row justify-between p-2 sm:p-3"
@@ -221,7 +221,7 @@ export default function StockDetail({ stockSingle, stock, stockPriceSeries }) {
           </button>
         )}
         <div className="mt-2 flex flex-col w-full items-center gap-3">
-          <Link
+          <a
             href={`/hisseler/${stockSingle.symbol}/bilanco`}
             className="rounded-lg flex relative bg-slate-150 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:bg-navy-700 w-full flex-row justify-between p-2 sm:p-3"
           >
@@ -233,7 +233,7 @@ export default function StockDetail({ stockSingle, stock, stockPriceSeries }) {
             <div className="absolute bottom-0 right-0 overflow-hidden rounded-lg">
               <i className="fa-solid fa-scale-balanced text-primary translate-x-1/4 translate-y-1/4 text-5xl opacity-15"></i>
             </div>
-          </Link>
+          </a>
           <Link
             href={`#`}
             className="rounded-lg flex relative bg-slate-150 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:bg-navy-700 w-full flex-row justify-between p-2 sm:p-3"
