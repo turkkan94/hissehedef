@@ -1,4 +1,4 @@
-import BalanceTable from "@/components/common/BalanceTable";
+import CashFlowTable from "@/components/common/CashFlowTable";
 import { getSingleStock } from "@/components/data/MainStockApi";
 
 export async function generateMetadata({ params: { symbol } }) {
@@ -7,14 +7,14 @@ export async function generateMetadata({ params: { symbol } }) {
     redirect("/404");
   }
   const seo_siteName = "Hisse Hedef";
-  const seo_title = `${stock?.symbol?.toUpperCase()} Bilanço Tablosu - ${
+  const seo_title = `${stock?.symbol?.toUpperCase()} Nakit Akışı - ${
     stock?.title
-  } Bilanço Analizi`;
-  const seo_description = `${stock?.symbol.toUpperCase()} hisse bilanço tablosunu bulabilirsiniz. ${
+  } Nakit Akışı Analizi`;
+  const seo_description = `${stock?.symbol.toUpperCase()} hisse nakit akışı tablosunu bulabilirsiniz. ${
     stock?.title
-  } şirketine ait detaylı bilanço kalemleri yer almaktadır.`;
+  } şirketine ait detaylı Nakit Akışı kalemleri yer almaktadır.`;
   const seo_image = `https://www.hissehedef.com/images/stocks/img/${stock?.symbol}.png`;
-  const seo_url = `https://www.hissehedef.com/hisseler/${stock?.symbol}/bilanco`;
+  const seo_url = `https://www.hissehedef.com/hisseler/${stock?.symbol}/nakit`;
   return {
     title: seo_title,
     description: seo_description,
@@ -69,23 +69,25 @@ export async function generateMetadata({ params: { symbol } }) {
   };
 }
 
-const getBalance = async (symbol) => {
+const getCashFlow = async (symbol) => {
   const res = await fetch(
-    `https://www.hissehedef.com/api/stocks/${symbol}/balance`,
-    { next: { revalidate: 60 } }
+    `https://www.hissehedef.com/api/stocks/${symbol}/cash`,
+    {
+      next: { revalidate: 60 },
+    }
   );
   const balance = await res.json();
   return balance;
 };
 
-export default async function BalancePage({ params: { symbol } }) {
-  const { balance } = await getBalance(symbol);
+export default async function CashPage({ params: { symbol } }) {
+  const { cashFlow } = await getCashFlow(symbol);
 
   return (
     <div className="col-span-12 pb-8">
       <div className="grid grid-cols-12 px-[var(--margin-x)] gap-4 transition-all duration-[.25s] sm:gap-5 lg:gap-6">
         <div className="col-span-12">
-          <BalanceTable balance={balance} symbol={symbol} />
+          <CashFlowTable cashFlow={cashFlow} symbol={symbol} />
         </div>
       </div>
     </div>
