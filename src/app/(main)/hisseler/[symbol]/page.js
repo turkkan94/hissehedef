@@ -1,8 +1,7 @@
-import React, { use } from "react";
+import React from "react";
 
 import { getSingleStock } from "@/components/data/MainStockApi";
-import { getStockData } from "@/components/data/GetStockData";
-import getStockPrices from "@/components/data/GetStockPrices";
+import { getStockData, getStockPrices } from "@/components/data/GetStockData";
 
 import StockPricesChart from "@/components/charts/StockPricesChart";
 import TargetPricesWidget from "@/components/common/TargetPricesWidget";
@@ -80,15 +79,15 @@ export async function generateMetadata({ params: { symbol } }) {
   };
 }
 
-export default function StockPage({ params: { symbol } }) {
-  const stockSingle = use(getSingleStock(symbol));
+export default async function StockPage({ params: { symbol } }) {
+  const stockSingle = await getSingleStock(symbol);
   if (stockSingle.detail) {
     redirect("/404");
   }
 
-  const { stock } = use(getStockData(symbol));
+  const { stock } = await getStockData(symbol);
 
-  const stockPriceSeries = use(getStockPrices(symbol, "30d"));
+  const { stockPriceSeries } = await getStockPrices(symbol);
 
   const stockIncomeQuarterlyChart = {
     title: "Net Kâr",

@@ -91,4 +91,18 @@ const getStockData = async (symbol) => {
   return stockSingle;
 };
 
-export { getStockQuoteSummary, getStockQuote, getFavoritesData, getStockData };
+const getStockPrices = async (symbol) => {
+  const res = await fetch(`http://localhost:3000/api/stocks/${symbol}/prices`, {
+    cache: "no-cache",
+  });
+  const prices = await res.json();
+  return prices;
+};
+
+export {
+  getStockQuoteSummary,
+  getStockQuote,
+  getFavoritesData,
+  getStockData,
+  getStockPrices,
+};
