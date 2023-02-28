@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 
 export default function BalanceTable({ balance, symbol }) {
+  const [isLoading, setIsLoading] = useState(true);
   let ignore = false;
   const translator = {
     cash: "Nakit",
@@ -9,27 +10,27 @@ export default function BalanceTable({ balance, symbol }) {
     netReceivables: "Net Alacaklar",
     inventory: "Stoklar",
     otherCurrentAssets: "Diğer Dönen Varlıklar",
-    totalCurrentAssets: "Toplam Dönen Varlıklar",
+    totalCurrentAssets: "💵 Toplam Dönen Varlıklar",
     longTermInvestments: "Uzun Vadeli Yatırımlar",
     propertyPlantEquipment: "Maddi Duran Varlıklar",
     intangibleAssets: "Maddi Olmayan Duran Varlıklar",
     goodWill: "Şerefiye Değeri",
     otherAssets: "Diğer Varlıklar",
     deferredLongTermAssetCharges: "Ertelenmiş Vergi Varlığı",
-    totalAssets: "Toplam Varlıklar",
+    totalAssets: "💰 Toplam Varlıklar",
     accountsPayable: "Ticari Borçlar",
     shortLongTermDebt: "Kısa&Uzun Vadeli Yükümlülükler",
     otherCurrentLiab: "Diğer Maddi Yükümlülükler",
     longTermDebt: "Uzun Vadeli Yükümlülükler",
     otherLiab: "Diğer Yükümlülükler",
     minorityInterest: "Azınlık Payları",
-    totalCurrentLiabilities: "Toplam Maddi Yükümlülükler",
-    totalLiab: "Toplam Yükümlülükler",
+    totalCurrentLiabilities: "Maddi Yükümlülükler",
+    totalLiab: "📑 Toplam Yükümlülükler",
     commonStock: "Ödenmiş Sermaye",
     retainedEarnings: "Dağıtılmamış Kârlar",
     treasuryStock: "Hazine Hisseleri",
     capitalSurplus: "Sermaye Fazlası",
-    totalStockholderEquity: "Özkaynaklar",
+    totalStockholderEquity: "🗄 Özkaynaklar",
     otherStockholderEquity: "Diğer Özkaynaklar",
     netTangibleAssets: "Net Maddi Varlıklar",
   };
@@ -67,11 +68,21 @@ export default function BalanceTable({ balance, symbol }) {
             elementParent.insertBefore(newElement, element);
             newElement.classList = "whitespace-nowrap px-4 py-3 sm:px-5";
             newElement.innerText = value;
+            if (
+              newElement.innerText.includes("Toplam") ||
+              newElement.innerText == "🗄 Özkaynaklar"
+            ) {
+              newElement.classList =
+                "whitespace-nowrap px-4 py-3 sm:px-5 font-bold";
+            }
           }
         }
       }
     };
     if (!ignore) formatTable();
+    var t = document.getElementsByTagName("tbody")[0],
+      r = t.getElementsByTagName("tr");
+    if (r.length > 4) setIsLoading(false);
     return () => {
       ignore = true;
     };
@@ -84,6 +95,11 @@ export default function BalanceTable({ balance, symbol }) {
         </h1>
       </div>
       <div className="card is-scrollbar-hidden min-w-full overflow-x-auto">
+        {isLoading && (
+          <div className="bg-[#f8fafc] absolute w-full h-full flex items-center justify-center">
+            <div className="spinner h-16 m-auto w-16 animate-spin rounded-full border-4 border-primary border-r-transparent dark:border-accent dark:border-r-transparent"></div>
+          </div>
+        )}
         <table className="w-full is-hoverable text-left">
           <thead>
             <tr>
@@ -257,16 +273,16 @@ export default function BalanceTable({ balance, symbol }) {
                   {item.otherStockholderEquity?.fmt}
                 </td>
                 <td
-                  id="totalStockholderEquity"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.totalStockholderEquity?.fmt}
-                </td>
-                <td
                   id="netTangibleAssets"
                   className="whitespace-nowrap px-4 py-3 sm:px-5"
                 >
                   {item.netTangibleAssets?.fmt}
+                </td>
+                <td
+                  id="totalStockholderEquity"
+                  className="whitespace-nowrap px-4 py-3 sm:px-5"
+                >
+                  {item.totalStockholderEquity?.fmt}
                 </td>
               </tr>
             ))}
