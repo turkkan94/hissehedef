@@ -2,7 +2,7 @@ import BalanceTable from "@/components/common/BalanceTable";
 import { getSingleStock } from "@/components/data/MainStockApi";
 const getBalance = async (symbol) => {
   const res = await fetch(
-    `http://localhost:3000/api/stocks/${symbol}/balance`,
+    `https://www.hissehedef.com/api/stocks/${symbol}/balance`,
     { next: { revalidate: 60 } }
   );
   const balance = await res.json();

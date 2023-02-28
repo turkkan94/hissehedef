@@ -85,14 +85,6 @@ export default function StockPage({ params: { symbol } }) {
   if (stockSingle.detail) {
     redirect("/404");
   }
-  // const {
-  //   stockPrice,
-  //   stockSummary,
-  //   stockBalanceQuarterly,
-  //   stockIncomeQuarterly,
-  //   period,
-  //   totalStockHolderPercent,
-  // } = use(getStockQuoteSummary(symbol));
 
   const { stock } = use(getStockData(symbol));
 
