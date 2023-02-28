@@ -1,12 +1,8 @@
 import React, { use } from "react";
 
 import { getSingleStock } from "@/components/data/MainStockApi";
-import {
-  getStockQuoteSummary,
-  getStockData,
-} from "@/components/data/GetStockData";
+import { getStockData } from "@/components/data/GetStockData";
 import getStockPrices from "@/components/data/GetStockPrices";
-import estimatedFinancials from "@/components/data/EstimatedFinancials";
 
 import StockPricesChart from "@/components/charts/StockPricesChart";
 import TargetPricesWidget from "@/components/common/TargetPricesWidget";
@@ -126,8 +122,15 @@ export default function StockPage({ params: { symbol } }) {
       <div className="grid grid-cols-12 px-[var(--margin-x)] gap-4 transition-all duration-[.25s] sm:gap-5 lg:gap-6">
         <div className="col-span-12 lg:col-span-8">
           <div className="flex flex-col sm:flex-row sm:space-x-7">
-            <StockDetail stockSingle={stockSingle} stock={stock} />
-            <div className="ax-transparent-gridline grid w-full grid-cols-1">
+            <StockDetail
+              stockSingle={stockSingle}
+              stock={stock}
+              stockPriceSeries={stockPriceSeries}
+            />
+            <div
+              className="ax-transparent-gridline w-full grid-cols-1 hidden sm:grid"
+              style={{ margin: "0 !important" }}
+            >
               <StockPricesChart stockPriceSeries={stockPriceSeries} />
             </div>
           </div>

@@ -243,7 +243,7 @@ export default function TargetPricesWidget({ stock, EPS, bookValueRatio }) {
             </a>
             web adresini kullabilirsiniz.
           </div>
-          <div className="sm:pl-4 m-0">
+          <div className="m-0">
             Özkaynak bölümündeki alana son bilanço tarihindeki fiyat girilmezse
             güncel fiyat baz alınır...
           </div>
