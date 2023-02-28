@@ -1,22 +1,27 @@
 export async function GET(request, { params: { symbol } }) {
   const resYahoo = await fetch(
     `https://query2.finance.yahoo.com/v10/finance/quoteSummary/${symbol.toUpperCase()}.IS?formatted=false&modules=price%2CbalanceSheetHistoryQuarterly%2CincomeStatementHistoryQuarterly%2CsummaryDetail`,
-    { next: { revalidate: 60 } }
+    {
+      headers: {
+        "content-type": "application/json",
+      },
+      next: { revalidate: 60 },
+    }
   );
-  const resAPI = await fetch(`https://api.hissehedef.com/stocks/${symbol}`, {
-    cache: "force-cache",
-  });
+  // const resAPI = await fetch(`https://api.hissehedef.com/stocks/${symbol}`, {
+  //   cache: "force-cache",
+  // });
 
   const dataYahoo = await resYahoo.json();
-  const dataAPI = await resAPI.json();
+  // const dataAPI = await resAPI.json();
 
   const stockPrice = dataYahoo.quoteSummary.result[0].price;
   const stockSummary = dataYahoo.quoteSummary.result[0].summaryDetail;
 
   let stock = {
     details: {
-      title: dataAPI.title,
-      symbol: dataAPI.symbol,
+      title: symbol,
+      symbol: symbol,
       currentPrice: stockPrice.regularMarketPrice || 0,
       previousClose: stockPrice.regularMarketPreviousClose || 0,
       priceChangePercent:
