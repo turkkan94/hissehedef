@@ -1,7 +1,10 @@
 import React, { use } from "react";
 
 import { getSingleStock } from "@/components/data/MainStockApi";
-import { getStockData } from "@/components/data/GetStockData";
+import {
+  getStockData,
+  getStockDataYahoo,
+} from "@/components/data/GetStockData";
 import getStockPrices from "@/components/data/GetStockPrices";
 
 import StockPricesChart from "@/components/charts/StockPricesChart";
@@ -85,7 +88,7 @@ export default function StockPage({ params: { symbol } }) {
   if (stockSingle.detail) {
     redirect("/404");
   }
-  const { stock } = use(getStockData(symbol));
+  const stock = use(getStockDataYahoo(symbol));
   const stockPriceSeries = use(getStockPrices(symbol, "30d"));
   const stockIncomeQuarterlyChart = {
     title: "Net Kâr",
