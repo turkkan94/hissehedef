@@ -1,6 +1,7 @@
 import { getSingleSector } from "@/components/data/MainStockApi";
 import StockListSector from "@/components/common/StockListSector";
 import { redirect } from "next/navigation";
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params: { slug }, searchParams }) {
   const sector = await getSingleSector(slug);

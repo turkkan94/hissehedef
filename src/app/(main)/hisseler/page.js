@@ -1,4 +1,5 @@
 import StockList from "@/components/common/StockList";
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ searchParams }) {
   let seo_title;
