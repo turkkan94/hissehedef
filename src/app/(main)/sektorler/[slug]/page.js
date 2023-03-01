@@ -7,6 +7,7 @@ export async function generateMetadata({ params: { slug } }) {
   if (sector.detail) {
     redirect("/404");
   }
+
   const seo_siteName = "Hisse Hedef";
   const seo_title = `${sector?.seo_title} Sektöründeki Hisseler ve Şirketler`;
   const seo_description = `${sector?.seo_title} sektöründeki şirketlerin listesini bulabilirsiniz. Hisseler hakkında temel analiz bilgileri tamamı ile ücretsiz sunulmaktadır.`;
