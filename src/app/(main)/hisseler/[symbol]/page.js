@@ -22,7 +22,7 @@ export async function generateMetadata({ params: { symbol } }) {
   const seo_siteName = "Hisse Hedef";
   const seo_title =
     stock?.symbol?.toUpperCase() +
-    " Hisse Analiz ve Yorumlar - " +
+    " Hisse Fiyatı, Analiz ve Yorumlar - " +
     stock?.title;
   const seo_description = `${stock?.symbol.toUpperCase()} hisse yorum ve analizlerinin yanı sıra ${
     stock?.title
