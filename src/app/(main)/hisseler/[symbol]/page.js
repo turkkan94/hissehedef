@@ -1,10 +1,7 @@
 import React, { use } from "react";
 
 import { getSingleStock } from "@/components/data/MainStockApi";
-import {
-  getStockData,
-  getStockDataYahoo,
-} from "@/components/data/GetStockData";
+import { getStockDataYahoo } from "@/components/data/GetStockData";
 import getStockPrices from "@/components/data/GetStockPrices";
 
 import StockPricesChart from "@/components/charts/StockPricesChart";
@@ -12,17 +9,17 @@ import TargetPricesWidget from "@/components/common/TargetPricesWidget";
 import BarCharts from "@/components/charts/BarCharts";
 import BreadCrumb from "@/components/common/BreadCrumb";
 import StockDetail from "@/components/common/StockDetail";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 export async function generateMetadata({ params: { symbol } }) {
   const stock = await getSingleStock(symbol);
   if (!stock) {
-    redirect("/404");
+    notFound();
   }
   const seo_siteName = "Hisse Hedef";
   const seo_title =
     stock?.symbol?.toUpperCase() +
-    " Hisse Fiyatı, Analiz ve Yorumlar - " +
+    " Hisse Hedef Fiyatı, Analiz ve Yorumlar - " +
     stock?.title;
   const seo_description = `${stock?.symbol.toUpperCase()} hisse yorum ve analizlerinin yanı sıra ${
     stock?.title
@@ -86,7 +83,7 @@ export async function generateMetadata({ params: { symbol } }) {
 export default function StockPage({ params: { symbol } }) {
   const stockSingle = use(getSingleStock(symbol));
   if (!stockSingle) {
-    redirect("/404");
+    notFound();
   }
   const stock = use(getStockDataYahoo(symbol));
   const stockPriceSeries = use(getStockPrices(symbol, "30d"));
