@@ -12,6 +12,24 @@ const createSitemap = (posts) => `<?xml version="1.0" encoding="UTF-8"?>
                     <changefreq>daily</changefreq>
                     <priority>1</priority>
                 </url>
+                <url>
+                    <loc>${`https://www.hissehedef.com/hisseler/${symbol}/bilanco`}</loc>
+                    <lastmod>${new Date().toISOString()}</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>1</priority>
+                </url>
+                <url>
+                    <loc>${`https://www.hissehedef.com/hisseler/${symbol}/nakit`}</loc>
+                    <lastmod>${new Date().toISOString()}</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>1</priority>
+                </url>
+                <url>
+                    <loc>${`https://www.hissehedef.com/hisseler/${symbol}/gelir`}</loc>
+                    <lastmod>${new Date().toISOString()}</lastmod>
+                    <changefreq>daily</changefreq>
+                    <priority>1</priority>
+                </url>
             `;
           })
           .join("")}
