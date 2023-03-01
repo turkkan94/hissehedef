@@ -1,6 +1,8 @@
 const getSingleStock = async (symbol) => {
   try {
-    const res = await fetch(`${process.env.MAIN_API}/stocks/${symbol}/`);
+    const res = await fetch(`${process.env.MAIN_API}/stocks/${symbol}/`, {
+      cache: "no-cache",
+    });
     if (res.status == 200) {
       const stockSingle = await res.json();
       return stockSingle;
