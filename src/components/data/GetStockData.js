@@ -104,7 +104,8 @@ const getStockData = async (symbol) => {
 
 const getStockDataYahoo = async (symbol) => {
   const resYahoo = await fetch(
-    `https://query2.finance.yahoo.com/v10/finance/quoteSummary/${symbol.toUpperCase()}.IS?formatted=false&modules=price%2CbalanceSheetHistoryQuarterly%2CincomeStatementHistoryQuarterly%2CsummaryDetail`
+    `https://query2.finance.yahoo.com/v10/finance/quoteSummary/${symbol.toUpperCase()}.IS?formatted=false&modules=price%2CbalanceSheetHistoryQuarterly%2CincomeStatementHistoryQuarterly%2CsummaryDetail`,
+    { next: { revalidate: 60 } }
   );
   const resAPI = await fetch(`https://api.hissehedef.com/stocks/${symbol}`);
 
