@@ -2,17 +2,22 @@ import { getSingleSector } from "@/components/data/MainStockApi";
 import StockListSector from "@/components/common/StockListSector";
 import { redirect } from "next/navigation";
 
-export async function generateMetadata({ params: { slug } }) {
+export async function generateMetadata({ params: { slug }, searchParams }) {
   const sector = await getSingleSector(slug);
   if (sector.detail) {
     redirect("/404");
   }
 
+  let seo_title = `${sector?.seo_title} Sektöründeki Hisseler ve Şirketler - Sayfa:${searchParams.page} `;
+  let seo_url = `https://www.hissehedef.com/sektorler/${sector?.slug}`;
+
+  if (searchParams.page) {
+    seo_title = `${sector?.seo_title} Sektöründeki Hisseler ve Şirketler`;
+    seo_url = `https://www.hissehedef.com/sektorler/${sector?.slug}?page=${searchParams.page}`;
+  }
   const seo_siteName = "Hisse Hedef";
-  const seo_title = `${sector?.seo_title} Sektöründeki Hisseler ve Şirketler`;
   const seo_description = `${sector?.seo_title} sektöründeki şirketlerin listesini bulabilirsiniz. Hisseler hakkında temel analiz bilgileri tamamı ile ücretsiz sunulmaktadır.`;
   const seo_image = `https://www.hissehedef.com/images/web/twitter-card.jpg`;
-  const seo_url = `https://www.hissehedef.com/sektorler/${sector?.slug}`;
   return {
     title: seo_title,
     description: seo_description,

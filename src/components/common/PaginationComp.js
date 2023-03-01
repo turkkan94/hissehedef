@@ -1,16 +1,17 @@
 "use client";
 import Pagination from "react-js-pagination";
 import { usePathname } from "next/navigation";
-import { useSelectedLayoutSegment } from "next/navigation";
 
 export default function PaginationComp({ page, resPerPage, count }) {
   const pathname = usePathname();
 
+  console.log(pathname);
+
   const handlePageClick = (pageNumber) => {
     if (pageNumber == 1) {
-      window.location.replace(`/${pathname.split("/")[1]}/`);
+      window.location.replace(pathname);
     } else {
-      window.location.replace(`/${pathname.split("/")[1]}?page=${pageNumber}`);
+      window.location.replace(`${pathname}?page=${pageNumber}`);
     }
   };
 
