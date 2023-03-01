@@ -16,7 +16,7 @@ import { redirect } from "next/navigation";
 
 export async function generateMetadata({ params: { symbol } }) {
   const stock = await getSingleStock(symbol);
-  if (stock.detail) {
+  if (!stock) {
     redirect("/404");
   }
   const seo_siteName = "Hisse Hedef";
