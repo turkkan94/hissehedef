@@ -147,7 +147,7 @@ export default function StockDetail({ stockSingle, stock, stockPriceSeries }) {
           iconColor={"text-warning"}
         />
         <SheetCard
-          url={`#`}
+          url={`/hisseler/${stockSingle.symbol}/gelir`}
           title="Gelir Tablosu"
           icon="fa-solid fa-sack-dollar"
           iconColor={"text-info"}
@@ -214,7 +214,7 @@ export default function StockDetail({ stockSingle, stock, stockPriceSeries }) {
             iconColor={"text-warning"}
           />
           <SheetCard
-            url={`#`}
+            url={`/hisseler/${stockSingle.symbol}/gelir`}
             title="Gelir Tablosu"
             icon="fa-solid fa-sack-dollar"
             iconColor={"text-info"}
