@@ -4,9 +4,6 @@ import { usePathname } from "next/navigation";
 
 export default function PaginationComp({ page, resPerPage, count }) {
   const pathname = usePathname();
-
-  console.log(pathname);
-
   const handlePageClick = (pageNumber) => {
     if (pageNumber == 1) {
       window.location.replace(pathname);

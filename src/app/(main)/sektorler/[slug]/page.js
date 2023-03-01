@@ -8,11 +8,11 @@ export async function generateMetadata({ params: { slug }, searchParams }) {
     redirect("/404");
   }
 
-  let seo_title = `${sector?.seo_title} Sektöründeki Hisseler ve Şirketler - Sayfa:${searchParams.page} `;
+  let seo_title = `${sector?.seo_title} Sektöründeki Hisseler ve Şirketler`;
   let seo_url = `https://www.hissehedef.com/sektorler/${sector?.slug}`;
 
   if (searchParams.page) {
-    seo_title = `${sector?.seo_title} Sektöründeki Hisseler ve Şirketler`;
+    seo_title = `${sector?.seo_title} Sektöründeki Hisseler ve Şirketler - Sayfa:${searchParams.page}`;
     seo_url = `https://www.hissehedef.com/sektorler/${sector?.slug}?page=${searchParams.page}`;
   }
   const seo_siteName = "Hisse Hedef";
