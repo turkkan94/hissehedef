@@ -14,7 +14,7 @@ export async function generateMetadata({ params: { symbol } }) {
     stock?.title
   } şirketine ait detaylı gelir kalemleri yer almaktadır.`;
   const seo_image = `https://www.hissehedef.com/images/stocks/img/${stock?.symbol}.png`;
-  const seo_url = `https://www.hissehedef.com/hisseler/${stock?.symbol}/nakit`;
+  const seo_url = `https://www.hissehedef.com/hisseler/${stock?.symbol}/gelir`;
   return {
     title: seo_title,
     description: seo_description,
