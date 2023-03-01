@@ -14,7 +14,7 @@ import { notFound, redirect } from "next/navigation";
 export async function generateMetadata({ params: { symbol } }) {
   const stock = await getSingleStock(symbol);
   if (!stock) {
-    notFound();
+    redirect("/404");
   }
   const seo_siteName = "Hisse Hedef";
   const seo_title =
@@ -83,7 +83,7 @@ export async function generateMetadata({ params: { symbol } }) {
 export default function StockPage({ params: { symbol } }) {
   const stockSingle = use(getSingleStock(symbol));
   if (!stockSingle) {
-    notFound();
+    redirect("/404");
   }
   const stock = use(getStockDataYahoo(symbol));
   const stockPriceSeries = use(getStockPrices(symbol, "30d"));
