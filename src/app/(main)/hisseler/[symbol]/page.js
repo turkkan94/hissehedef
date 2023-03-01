@@ -85,7 +85,7 @@ export async function generateMetadata({ params: { symbol } }) {
 
 export default function StockPage({ params: { symbol } }) {
   const stockSingle = use(getSingleStock(symbol));
-  if (stockSingle.detail) {
+  if (!stockSingle) {
     redirect("/404");
   }
   const stock = use(getStockDataYahoo(symbol));
