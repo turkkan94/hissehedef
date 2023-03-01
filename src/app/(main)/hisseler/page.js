@@ -2,12 +2,9 @@ import StockList from "@/components/common/StockList";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ searchParams }) {
-  let seo_title;
-  let seo_url;
-  if (!searchParams.page) {
-    seo_title = "Tüm Hisseler | Türkiye Borsası | Bist 100 | Bist 30";
-    seo_url = "https://www.hissehedef.com/hisseler";
-  } else {
+  let seo_title = "Tüm Hisseler | Türkiye Borsası | Bist 100 | Bist 30";
+  let seo_url = "https://www.hissehedef.com/hisseler";
+  if (searchParams.page) {
     seo_title = `Tüm Hisseler | Türkiye Borsası | Bist 100 | Bist 30 - Sayfa:${searchParams.page}`;
     seo_url = `https://www.hissehedef.com/hisseler?page=${searchParams.page}`;
   }
