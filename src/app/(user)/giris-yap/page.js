@@ -163,7 +163,7 @@ export default function LoginPage() {
 
               <a
                 className="text-primary transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent"
-                href="pages-singup-1.html"
+                href="/kayit-ol"
               >
                 Kayıt Ol
               </a>

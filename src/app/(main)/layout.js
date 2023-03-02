@@ -49,7 +49,7 @@ export default function RootLayout({ children }) {
               <MobileSearchBar useSharedMobileSearch={useSharedMobileSearch} />
               <RightSideBar useSharedSidebar={useSharedSidebar} />
               <main className="main-content w-full">
-                <div className="mt-4 grid grid-cols-1 gap-4 sm:mt-5 sm:gap-5 lg:mt-6 lg:gap-6">
+                <div className="mt-4 grid grid-cols-1 gap-4 sm:mt-5 sm:gap-5 lg:mt-6 lg:gap-6 relative">
                   <MobileMenu isMobileMenu={isMobileMenu} />
                   {children}
                 </div>

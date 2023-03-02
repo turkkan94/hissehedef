@@ -1,8 +1,11 @@
 "use client";
+
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
+
+const initError = { error: false, mail: null, pass: null };
 
 export default function Register() {
   const [firstName, setFirstName] = useState("");
@@ -10,38 +13,57 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
+  const [state, setState] = useState(initError);
   const { data: session, status } = useSession();
   const router = useRouter();
 
+  const { error, mail, pass } = state;
+
+  function ValidateEmail(inputText) {
+    var mailformat =
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (inputText.match(mailformat)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   const submitHandler = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios
-        .post(`${process.env.MAIN_API}/register/`, {
-          first_name: firstName,
-          last_name: lastName,
-          email,
-          password,
-          favorites: "",
-          job: "",
-          phone: "",
-          twitter: "",
-          instagram: "",
-          web: "",
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            router.push("/giris-yap");
-          }
-        });
-      if (res.data.username) {
-        router.push("/giris-yap");
+
+    if (ValidateEmail(email)) {
+      try {
+        const res = await axios
+          .post(`${process.env.MAIN_API}/register/`, {
+            first_name: firstName,
+            last_name: lastName,
+            email,
+            password,
+            favorites: "",
+            job: "",
+            phone: "",
+            twitter: "",
+            instagram: "",
+            web: "",
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              router.push("/giris-yap");
+            }
+          });
+        if (res.data.username) {
+          router.push("/giris-yap");
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+    } else {
+      setState(() => ({
+        mail: "Hata! Lütfen geçerli bir mail adresi girin.",
+      }));
     }
   };
-
   if (status == "authenticated") {
     return (
       <main className="grid w-full grow grid-cols-1 place-items-center">
@@ -116,7 +138,7 @@ export default function Register() {
               </span>
             </span>
           </label>
-          <label className="block">
+          <label className="mt-4 block">
             <span>Soyad:</span>
             <span className="relative mt-1.5 flex">
               <input
@@ -130,33 +152,41 @@ export default function Register() {
               </span>
             </span>
           </label>
-          <label className="block">
-            <span>Mail:</span>
-            <span className="relative mt-1.5 flex">
-              <input
-                className="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                placeholder="Mail adresinizi giriniz."
-                type="email"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <span className="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 transition-colors duration-200"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  />
-                </svg>
+          <div className="mt-4">
+            <label className="block">
+              <span>Mail:</span>
+              <span className="relative mt-1.5 flex">
+                <input
+                  className={`form-input peer w-full rounded-lg border ${
+                    state.mail ? "border-error" : "border-slate-300"
+                  } bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent`}
+                  placeholder="Mail adresinizi giriniz."
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <span className="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 transition-colors duration-200"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                </span>
               </span>
-            </span>
-          </label>
+            </label>
+            {state.mail && (
+              <span className="text-tiny+ text-error">{state.mail}</span>
+            )}
+          </div>
+
           <label className="mt-4 block">
             <span>Şifre:</span>
             <span className="relative mt-1.5 flex">
@@ -211,7 +241,7 @@ export default function Register() {
 
               <a
                 className="text-primary transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent"
-                href="pages-singup-1.html"
+                href="/kayit-ol"
               >
                 Kayıt Ol
               </a>

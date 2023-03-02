@@ -3,13 +3,12 @@ import { usePathname } from "next/navigation";
 
 export default function MobileMenu({ isMobileMenu }) {
   const pathname = usePathname();
-
   return (
     <div
       className={
         isMobileMenu
-          ? "col-span-12 px-[var(--margin-x)]"
-          : "col-span-12 px-[var(--margin-x)] hidden"
+          ? "col-span-12 px-[var(--margin-x)] fixed z-50 w-full"
+          : "col-span-12 px-[var(--margin-x)] fixed z-50 w-full hidden"
       }
     >
       <div className="card col-span-12">
