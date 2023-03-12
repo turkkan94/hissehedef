@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 
 export default function IncomeTable({ income, symbol }) {
   const [isLoading, setIsLoading] = useState(true);
+  const [haveData, setHaveData] = useState(false);
+
   let ignore = false;
   const translator = {
     totalRevenue: "Toplam Satış Gelirleri",
@@ -34,7 +36,6 @@ export default function IncomeTable({ income, symbol }) {
           tem,
           i = 0,
           tbod = document.createElement("tbody");
-
         while (i < rows) {
           cell = 0;
           tem = document.createElement("tr");
@@ -66,10 +67,14 @@ export default function IncomeTable({ income, symbol }) {
         }
       }
     };
-    if (!ignore) formatTable();
+
+    if (!ignore && r) formatTable();
     var t = document.getElementsByTagName("tbody")[0],
       r = t.getElementsByTagName("tr");
-    if (r.length > 4) setIsLoading(false);
+    if (r.length > 4) {
+      setIsLoading(false);
+      setHaveData(true);
+    }
     return () => {
       ignore = true;
     };
@@ -82,7 +87,7 @@ export default function IncomeTable({ income, symbol }) {
         </h1>
       </div>
       <div className="card is-scrollbar-hidden min-w-full overflow-x-auto">
-        {isLoading && (
+        {isLoading && haveData && (
           <div className="bg-[#f8fafc] absolute w-full h-full flex items-center justify-center">
             <div className="spinner h-16 m-auto w-16 animate-spin rounded-full border-4 border-primary border-r-transparent dark:border-accent dark:border-r-transparent"></div>
           </div>
@@ -91,7 +96,7 @@ export default function IncomeTable({ income, symbol }) {
           <thead>
             <tr>
               <th className="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                Kalemler
+                {haveData ? "Kalemler" : "Veri Bulunamadı"}
               </th>
               {income.map((item, i) => (
                 <th
@@ -103,105 +108,111 @@ export default function IncomeTable({ income, symbol }) {
               ))}
             </tr>
           </thead>
-          <tbody>
-            {income.map((item, i) => (
-              <tr key={i}>
-                <td
-                  id="totalRevenue"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.totalRevenue?.fmt}
-                </td>
-                <td
-                  id="costOfRevenue"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.costOfRevenue?.fmt}
-                </td>
-                <td
-                  id="grossProfit"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.grossProfit?.fmt}
-                </td>
-                <td
-                  id="researchDevelopment"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.researchDevelopment?.fmt}
-                </td>
-                <td
-                  id="sellingGeneralAdministrative"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.sellingGeneralAdministrative?.fmt}
-                </td>
-                <td
-                  id="otherOperatingExpenses"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.otherOperatingExpenses?.fmt}
-                </td>
-                <td
-                  id="totalOperatingExpenses"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.totalOperatingExpenses?.fmt}
-                </td>
-                <td
-                  id="operatingIncome"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.operatingIncome?.fmt}
-                </td>
-                <td
-                  id="totalOtherIncomeExpenseNet"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.totalOtherIncomeExpenseNet?.fmt}
-                </td>
-                <td id="ebit" className="whitespace-nowrap px-4 py-3 sm:px-5">
-                  {item.ebit?.fmt}
-                </td>
-                <td
-                  id="interestExpense"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.interestExpense?.fmt}
-                </td>
-                <td
-                  id="incomeBeforeTax"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.incomeBeforeTax?.fmt}
-                </td>
-                <td
-                  id="incomeTaxExpense"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.incomeTaxExpense?.fmt}
-                </td>
-                <td
-                  id="minorityInterest"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.minorityInterest?.fmt}
-                </td>
-                <td
-                  id="netIncomeFromContinuingOps"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.netIncomeFromContinuingOps?.fmt}
-                </td>
-                <td
-                  id="netIncome"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.netIncome?.fmt}
-                </td>
-              </tr>
-            ))}
-          </tbody>
+          {haveData ? (
+            <tbody>
+              {income.map((item, i) => (
+                <tr key={i}>
+                  <td
+                    id="totalRevenue"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.totalRevenue?.fmt}
+                  </td>
+                  <td
+                    id="costOfRevenue"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.costOfRevenue?.fmt}
+                  </td>
+                  <td
+                    id="grossProfit"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.grossProfit?.fmt}
+                  </td>
+                  <td
+                    id="researchDevelopment"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.researchDevelopment?.fmt}
+                  </td>
+                  <td
+                    id="sellingGeneralAdministrative"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.sellingGeneralAdministrative?.fmt}
+                  </td>
+                  <td
+                    id="otherOperatingExpenses"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.otherOperatingExpenses?.fmt}
+                  </td>
+                  <td
+                    id="totalOperatingExpenses"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.totalOperatingExpenses?.fmt}
+                  </td>
+                  <td
+                    id="operatingIncome"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.operatingIncome?.fmt}
+                  </td>
+                  <td
+                    id="totalOtherIncomeExpenseNet"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.totalOtherIncomeExpenseNet?.fmt}
+                  </td>
+                  <td id="ebit" className="whitespace-nowrap px-4 py-3 sm:px-5">
+                    {item.ebit?.fmt}
+                  </td>
+                  <td
+                    id="interestExpense"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.interestExpense?.fmt}
+                  </td>
+                  <td
+                    id="incomeBeforeTax"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.incomeBeforeTax?.fmt}
+                  </td>
+                  <td
+                    id="incomeTaxExpense"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.incomeTaxExpense?.fmt}
+                  </td>
+                  <td
+                    id="minorityInterest"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.minorityInterest?.fmt}
+                  </td>
+                  <td
+                    id="netIncomeFromContinuingOps"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.netIncomeFromContinuingOps?.fmt}
+                  </td>
+                  <td
+                    id="netIncome"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.netIncome?.fmt}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          ) : (
+            <tbody>
+              <tr></tr>
+            </tbody>
+          )}
         </table>
       </div>
     </div>

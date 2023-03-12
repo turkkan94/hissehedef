@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 
 export default function CashFlowTable({ cashFlow, symbol }) {
   const [isLoading, setIsLoading] = useState(true);
+  const [haveData, setHaveData] = useState(false);
+
   let ignore = false;
   const translator = {
     netIncome: "Net Gelir",
@@ -39,7 +41,6 @@ export default function CashFlowTable({ cashFlow, symbol }) {
           tem,
           i = 0,
           tbod = document.createElement("tbody");
-
         while (i < rows) {
           cell = 0;
           tem = document.createElement("tr");
@@ -71,10 +72,14 @@ export default function CashFlowTable({ cashFlow, symbol }) {
         }
       }
     };
-    if (!ignore) formatTable();
+
+    if (!ignore && r) formatTable();
     var t = document.getElementsByTagName("tbody")[0],
       r = t.getElementsByTagName("tr");
-    if (r.length > 4) setIsLoading(false);
+    if (r.length > 4) {
+      setIsLoading(false);
+      setHaveData(true);
+    }
     return () => {
       ignore = true;
     };
@@ -87,7 +92,7 @@ export default function CashFlowTable({ cashFlow, symbol }) {
         </h1>
       </div>
       <div className="card is-scrollbar-hidden min-w-full overflow-x-auto">
-        {isLoading && (
+        {isLoading && haveData && (
           <div className="bg-[#f8fafc] absolute w-full h-full flex items-center justify-center">
             <div className="spinner h-16 m-auto w-16 animate-spin rounded-full border-4 border-primary border-r-transparent dark:border-accent dark:border-r-transparent"></div>
           </div>
@@ -96,7 +101,7 @@ export default function CashFlowTable({ cashFlow, symbol }) {
           <thead>
             <tr>
               <th className="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                Kalemler
+                {haveData ? "Kalemler" : "Veri Bulunamadı"}
               </th>
               {cashFlow.map((item, i) => (
                 <th
@@ -108,120 +113,126 @@ export default function CashFlowTable({ cashFlow, symbol }) {
               ))}
             </tr>
           </thead>
-          <tbody>
-            {cashFlow.map((item, i) => (
-              <tr key={i}>
-                <td
-                  id="netIncome"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.netIncome?.fmt}
-                </td>
-                <td
-                  id="depreciation"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.depreciation?.fmt}
-                </td>
-                <td
-                  id="changeToNetincome"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.changeToNetincome?.fmt}
-                </td>
-                <td
-                  id="changeToAccountReceivables"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.changeToAccountReceivables?.fmt}
-                </td>
-                <td
-                  id="changeToLiabilities"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.changeToLiabilities?.fmt}
-                </td>
-                <td
-                  id="changeToInventory"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.changeToInventory?.fmt}
-                </td>
-                <td
-                  id="changeToOperatingActivities"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.changeToOperatingActivities?.fmt}
-                </td>
-                <td
-                  id="totalCashFromOperatingActivities"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.totalCashFromOperatingActivities?.fmt}
-                </td>
-                <td
-                  id="capitalExpenditures"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.capitalExpenditures?.fmt}
-                </td>
-                <td
-                  id="investments"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.investments?.fmt}
-                </td>
-                <td
-                  id="otherCashflowsFromInvestingActivities"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.otherCashflowsFromInvestingActivities?.fmt}
-                </td>
-                <td
-                  id="totalCashflowsFromInvestingActivities"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.totalCashflowsFromInvestingActivities?.fmt}
-                </td>
-                <td
-                  id="dividendsPaid"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.dividendsPaid?.fmt}
-                </td>
-                <td
-                  id="netBorrowings"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.netBorrowings?.fmt}
-                </td>
-                <td
-                  id="otherCashflowsFromFinancingActivities"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.otherCashflowsFromFinancingActivities?.fmt}
-                </td>
-                <td
-                  id="totalCashFromFinancingActivities"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.totalCashFromFinancingActivities?.fmt}
-                </td>
-                <td
-                  id="effectOfExchangeRate"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.effectOfExchangeRate?.fmt}
-                </td>
-                <td
-                  id="changeInCash"
-                  className="whitespace-nowrap px-4 py-3 sm:px-5"
-                >
-                  {item.changeInCash?.fmt}
-                </td>
-              </tr>
-            ))}
-          </tbody>
+          {haveData ? (
+            <tbody>
+              {cashFlow.map((item, i) => (
+                <tr key={i}>
+                  <td
+                    id="netIncome"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.netIncome?.fmt}
+                  </td>
+                  <td
+                    id="depreciation"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.depreciation?.fmt}
+                  </td>
+                  <td
+                    id="changeToNetincome"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.changeToNetincome?.fmt}
+                  </td>
+                  <td
+                    id="changeToAccountReceivables"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.changeToAccountReceivables?.fmt}
+                  </td>
+                  <td
+                    id="changeToLiabilities"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.changeToLiabilities?.fmt}
+                  </td>
+                  <td
+                    id="changeToInventory"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.changeToInventory?.fmt}
+                  </td>
+                  <td
+                    id="changeToOperatingActivities"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.changeToOperatingActivities?.fmt}
+                  </td>
+                  <td
+                    id="totalCashFromOperatingActivities"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.totalCashFromOperatingActivities?.fmt}
+                  </td>
+                  <td
+                    id="capitalExpenditures"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.capitalExpenditures?.fmt}
+                  </td>
+                  <td
+                    id="investments"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.investments?.fmt}
+                  </td>
+                  <td
+                    id="otherCashflowsFromInvestingActivities"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.otherCashflowsFromInvestingActivities?.fmt}
+                  </td>
+                  <td
+                    id="totalCashflowsFromInvestingActivities"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.totalCashflowsFromInvestingActivities?.fmt}
+                  </td>
+                  <td
+                    id="dividendsPaid"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.dividendsPaid?.fmt}
+                  </td>
+                  <td
+                    id="netBorrowings"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.netBorrowings?.fmt}
+                  </td>
+                  <td
+                    id="otherCashflowsFromFinancingActivities"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.otherCashflowsFromFinancingActivities?.fmt}
+                  </td>
+                  <td
+                    id="totalCashFromFinancingActivities"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.totalCashFromFinancingActivities?.fmt}
+                  </td>
+                  <td
+                    id="effectOfExchangeRate"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.effectOfExchangeRate?.fmt}
+                  </td>
+                  <td
+                    id="changeInCash"
+                    className="whitespace-nowrap px-4 py-3 sm:px-5"
+                  >
+                    {item.changeInCash?.fmt}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          ) : (
+            <tbody>
+              <tr></tr>
+            </tbody>
+          )}
         </table>
       </div>
     </div>
