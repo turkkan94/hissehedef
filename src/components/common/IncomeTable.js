@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 export default function IncomeTable({ income, symbol }) {
   const [isLoading, setIsLoading] = useState(true);
-  const [haveData, setHaveData] = useState(false);
 
   let ignore = false;
   const translator = {
@@ -30,51 +29,51 @@ export default function IncomeTable({ income, symbol }) {
         var t = document.getElementsByTagName("tbody")[0],
           r = t.getElementsByTagName("tr"),
           cols = r.length,
-          rows = r[0].getElementsByTagName("td").length,
+          rows,
           cell,
           next,
           tem,
           i = 0,
           tbod = document.createElement("tbody");
-        while (i < rows) {
-          cell = 0;
-          tem = document.createElement("tr");
-          while (cell < cols) {
-            next = r[cell++].getElementsByTagName("td")[0];
-            tem.appendChild(next);
+        if (cols > 0) {
+          rows = r[0].getElementsByTagName("td").length;
+          while (i < rows) {
+            cell = 0;
+            tem = document.createElement("tr");
+            while (cell < cols) {
+              next = r[cell++].getElementsByTagName("td")[0];
+              tem.appendChild(next);
+            }
+            tbod.appendChild(tem);
+            ++i;
           }
-          tbod.appendChild(tem);
-          ++i;
-        }
-        t.parentNode.replaceChild(tbod, t);
+          t.parentNode.replaceChild(tbod, t);
 
-        for (const [key, value] of Object.entries(translator)) {
-          var element = document.getElementById(key);
-          if (element) {
-            var elementParent = element.parentNode;
-            var newElement = document.createElement("td");
-            elementParent.insertBefore(newElement, element);
-            newElement.classList = "whitespace-nowrap px-4 py-3 sm:px-5";
-            newElement.innerText = value;
-            // if (
-            //   newElement.innerText.includes("Toplam") ||
-            //   newElement.innerText == "🗄 Özkaynaklar"
-            // ) {
-            //   newElement.classList =
-            //     "whitespace-nowrap px-4 py-3 sm:px-5 font-bold";
-            // }
+          for (const [key, value] of Object.entries(translator)) {
+            var element = document.getElementById(key);
+            if (element) {
+              var elementParent = element.parentNode;
+              var newElement = document.createElement("td");
+              elementParent.insertBefore(newElement, element);
+              newElement.classList = "whitespace-nowrap px-4 py-3 sm:px-5";
+              newElement.innerText = value;
+              // if (
+              //   newElement.innerText.includes("Toplam") ||
+              //   newElement.innerText == "🗄 Özkaynaklar"
+              // ) {
+              //   newElement.classList =
+              //     "whitespace-nowrap px-4 py-3 sm:px-5 font-bold";
+              // }
+              if (r.length > 3) {
+                setIsLoading(false);
+              }
+            }
           }
         }
       }
     };
+    if (!ignore) formatTable();
 
-    if (!ignore && r) formatTable();
-    var t = document.getElementsByTagName("tbody")[0],
-      r = t.getElementsByTagName("tr");
-    if (r.length > 4) {
-      setIsLoading(false);
-      setHaveData(true);
-    }
     return () => {
       ignore = true;
     };
@@ -87,16 +86,22 @@ export default function IncomeTable({ income, symbol }) {
         </h1>
       </div>
       <div className="card is-scrollbar-hidden min-w-full overflow-x-auto">
-        {isLoading && haveData && (
-          <div className="bg-[#f8fafc] absolute w-full h-full flex items-center justify-center">
-            <div className="spinner h-16 m-auto w-16 animate-spin rounded-full border-4 border-primary border-r-transparent dark:border-accent dark:border-r-transparent"></div>
+        {isLoading && (
+          <div className="h-[200px]">
+            <div className="flex bg-[#f8fafc] justify-center py-4">
+              Veriler yükleniyor... Uzun süre veriler yüklenmiyorsa hisse için
+              veriler henüz eklenmemiş demektir.
+            </div>
+            <div className="bg-[#f8fafc] absolute w-full h-full flex items-center justify-center">
+              <div className="spinner h-16 m-auto w-16 animate-spin rounded-full border-4 border-primary border-r-transparent dark:border-accent dark:border-r-transparent"></div>
+            </div>
           </div>
         )}
         <table className="w-full is-hoverable text-left">
           <thead>
             <tr>
               <th className="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                {haveData ? "Kalemler" : "Veri Bulunamadı"}
+                {!isLoading ? "Kalemler" : "Veri Bulunamadı"}
               </th>
               {income.map((item, i) => (
                 <th
@@ -108,7 +113,7 @@ export default function IncomeTable({ income, symbol }) {
               ))}
             </tr>
           </thead>
-          {haveData ? (
+          {isLoading ? (
             <tbody>
               {income.map((item, i) => (
                 <tr key={i}>
